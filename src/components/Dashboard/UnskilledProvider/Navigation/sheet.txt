@@ -1,0 +1,112 @@
+<Sheet open={isProfileOpen} onOpenChange={setIsProfileOpen}>
+          <SheetTrigger asChild>
+            <button className="flex items-center gap-3">
+              <Avatar className="h-10 w-10 ring-2 ring-primary/20">
+                <AvatarImage src={userAvatar} alt={userName} />
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  {userName.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </button>
+          </SheetTrigger>
+
+          <SheetContent side="left" className="w-[300px] p-0">
+            <div className="flex flex-col h-full">
+              {/* Sheet Header */}
+              <div className="p-6 border-b border-border">
+                <div className="flex items-center gap-3 mb-4">
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage src={userAvatar} alt={userName} />
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xl">
+                      {userName.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg">{userName}</h3>
+                    <p className="text-sm text-muted-foreground">{userEmail}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Menu Items */}
+              <div className="flex-1 py-4">
+                {profileMenuItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className="w-full flex items-center gap-3 px-6 py-3 hover:bg-muted/50 transition-colors"
+                    >
+                      <Icon className="h-5 w-5 text-muted-foreground" />
+                      <span className="text-sm font-medium">{item.label}</span>
+                    </Link>
+                  );
+                })}
+
+                {/* Theme Switch */}
+                <div
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  role="button"
+                  tabIndex={0}
+                  className="w-full flex items-center justify-between px-6 py-3 hover:bg-muted/50 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    {theme === "dark" ? (
+                      <Moon className="h-5 w-5 text-muted-foreground" />
+                    ) : (
+                      <Sun className="h-5 w-5 text-muted-foreground" />
+                    )}
+                    <span className="text-sm font-medium">Theme</span>
+                  </div>
+
+                  <Button variant="outline" size="sm" className="h-8 px-3">
+                    {theme === "dark" ? "Dark" : "Light"}
+                  </Button>
+                </div>
+
+                {/* Language Toggle */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="w-full flex items-center justify-between px-6 py-3 hover:bg-muted/50 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <Languages className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-sm font-medium">Language</span>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 px-3 bg-green-500 text-white hover:bg-green-600 border-green-500"
+                  >
+                    বাং
+                  </Button>
+                </div>
+
+                {/* Settings */}
+                <Link
+                  href={"/dashboard/general-provider/settings"}
+                  className="w-full flex items-center gap-3 px-6 py-3 hover:bg-muted/50 transition-colors"
+                >
+                  <Settings className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-sm font-medium">Settings</span>
+                </Link>
+
+                {/* Logout */}
+                <button
+                  onClick={() => {
+                    onLogout();
+                    setIsProfileOpen(false);
+                  }}
+                  className="w-full flex items-center gap-3 px-6 py-3 hover:bg-muted/50 transition-colors text-red-600"
+                >
+                  <LogOut className="h-5 w-5" />
+                  <span className="text-sm font-medium">Log out</span>
+                </button>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>

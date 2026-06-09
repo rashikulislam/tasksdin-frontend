@@ -1,0 +1,259 @@
+{
+  "Navbar": {
+    "local": "Local Work",
+    "freelancer": "Freelancer",
+    "more": "More",
+    "joinAsProviderBtn": "Join as Provider",
+    "getStarted": "Sign In",
+    "joinGeneralProvider": "Join as General Provider",
+    "joinSkilledProvider": "Join as Skilled Provider"
+  },
+  "HomePage": {
+    "Banner": {
+      "titlePart1": "Welcome to",
+      "titlePart2": "Tasks Din",
+      "description": "Your one-stop platform for all services - from local tasks to professional freelancing",
+      "services": {
+        "service1": "Instant Service",
+        "serviceDescription1": "Get services within minutes",
+        "service2": "Secure Platform",
+        "serviceDescription2": "Safe payments and verified providers",
+        "service3": "Quality Assured",
+        "serviceDescription3": "Rated providers and guaranteed satisfaction"
+      }
+    },
+
+    "OurServices": {
+      "title": "Our Services",
+      "description": "Choose from our wide range of services tailored to meet your needs",
+      "servicesBtn": "Explore Now",
+      "services": [
+        {
+          "title": "Local Tasks",
+          "description": "Find nearby service providers for your daily tasks and home services",
+          "features": [
+            "Instant booking",
+            "Verified providers",
+            "Live Tracking"
+          ],
+          "link": "/local-task"
+        },
+        {
+          "title": "Freelancer Services",
+          "description": "Hire skilled freelancers for your projects and business needs",
+          "features": [
+            "Project-based work",
+            "Portfolio & reviews",
+            "secure_payments"
+          ],
+          "link": "/freelancer-services"
+        },
+        {
+          "title": "Skilled Providers",
+          "description": "Professional experts for specialized services and consultations",
+          "features": [
+            "Expert professionals",
+            "Consultation services",
+            "Certified skills"
+          ],
+          "link": "/skill-provider"
+        },
+        {
+          "title": "General Providers",
+          "description": "Reliable helpers for everyday tasks and simple services",
+          "features": ["Everyday tasks", "Affordable rates", "Quick service"],
+          "link": "/general-provider"
+        }
+      ]
+    },
+
+    "ReadyToStart": {
+      "title": "Ready to Get Started?",
+      "description": "Join thousands of users who trust our platform for their service needs",
+      "getServiceBtn": "Get Service",
+      "becomeProvider": "Become Provider"
+    }
+  },
+
+  "LocalWorkPage": {
+    "Banner": {
+      "title": "Find local services",
+      "description": "Find trusted and efficient service providers near you. From house cleaning to delivery services - all in one place.",
+      "btn": "Find services",
+      "feature1": {
+        "title": "Safe service",
+        "description": "Safe service providers are verified and safe."
+      },
+      "feature2": {
+        "title": "Quality",
+        "description": "High quality service is guaranteed."
+      },
+      "feature3": {
+        "title": "Experienced staff",
+        "description": "Skilled and experienced service provider"
+      }
+    },
+    "HowItWork": {
+      "title": "How it works",
+      "description": "Get the service you want in just three steps.",
+
+      "feature1": {
+        "title": "Service selection",
+        "number": "1",
+        "description": "Find and choose the services you need."
+      },
+      "feature2": {
+        "title": "Provider selection",
+        "number": "2",
+        "description": "Choose the best provider by looking at ratings and reviews."
+      },
+      "feature3": {
+        "title": "Receiving services",
+        "number": "3",
+        "description": "Receive service at the scheduled time."
+      }
+    },
+    "BecomeProvider": {
+      "title": "Want to become a service provider?",
+      "description": "Join us and earn money with your skills and serve people.",
+      "joinAsProvider": "Join as a provider",
+      "more": "Learn more"
+    }
+  },
+
+  "Footer": {
+    "companyDescription": "From grocery shopping to medicine delivery - get any service from reliable providers.",
+    "services": "Services",
+    "serviceList": [
+      "Local Task",
+      "Freelancers",
+      "Academic & Office Help",
+      "Home Services"
+    ],
+    "company": "Company",
+    "companyLinks": [
+      { "label": "About", "href": "/about" },
+      { "label": "How it works", "href": "/how-it-works" },
+      { "label": "Careers", "href": "/careers" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "support": "Support",
+    "supportLinks": [
+      { "label": "Help Center", "href": "/help-center" },
+      { "label": "Safety", "href": "/safety" },
+      { "label": "Privacy Policy", "href": "/privacy-policy" },
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Refund Policy", "href": "/refund-policy" }
+    ],
+    "paymentMethods": "Payment Methods",
+    "payments": ["Visa/Mastercard", "bKash", "Nagad", "Rocket"],
+    "copyright": "© 2024 Tasks Din. All rights reserved.",
+    "downloadApp": "Download App",
+    "address": "Dhaka, Bangladesh",
+    "phone": "+880 1838992012",
+    "email": "contact@tasksdin.com",
+    "language": "Language"
+  },
+
+  "Auth": {
+    "SignIn": {
+      "title": "Login to your account",
+      "description": "Enter your email and password below to access your account",
+      "email": "Email",
+      "password": "Password",
+      "forgot": "Forgot password?",
+      "login": "Login",
+      "or": "OR",
+      "google": "Login with Google",
+      "createAccount": "Create a new account"
+    },
+    "ConsumerRegister": {
+      "createConsumer": "Register Account",
+      "description": "Fill in your details to get started",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "gender": "Gender",
+      "nid": "NID Info",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "register": "Register",
+      "alreadyAccount": "Already have an account?",
+      "login": "Login"
+    },
+
+    "ProviderRegister": {
+      "FirstPage": {
+        "title": "Registration",
+        "description": "Please fill out the form below to register as a provider.",
+        "step": "Step",
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email",
+        "phone": "Phone Number",
+        "phonePlaceholder": "+8801XXXXXXXXX",
+        "nid": "NID / Passport",
+        "nidPlaceholder": "Enter your NID or Passport number",
+        "password": "Password",
+        "next": "Next",
+        "back": "Back",
+        "haveAccount": "Already have an account?",
+        "login": "Login"
+      },
+
+      "SecondPage": {
+        "step": "Step",
+        "nidTitle": "NID Verification",
+        "nidDescription": "Please upload your National ID or Passport.",
+        "uploadPlaceholder": "Upload NID / Passport",
+        "selectFile": "Select File",
+        "fileUploaded": "File uploaded successfully - verification in progress",
+        "next": "Next",
+        "back": "Back",
+        "fileMissingTitle": "No File Selected",
+        "fileMissingDesc": "Please upload your NID or Passport to continue."
+      },
+      "ThirdPage": {
+        "step": "Step",
+        "phoneVerificationTitle": "Phone Number Verification",
+        "phoneVerificationDesc": "A 6-digit OTP has been sent to {phone}",
+        "otpLabel": "OTP/SMS Code",
+        "otpMissingTitle": "OTP Missing",
+        "otpMissingDesc": "Please enter the 6-digit OTP sent to your phone.",
+        "otpVerifiedTitle": "OTP Verified",
+        "otpVerifiedDesc": "Your phone number has been successfully verified.",
+        "otpResentTitle": "OTP Resent",
+        "otpResentDesc": "A new OTP has been sent to your phone.",
+        "resendOTP": "Resend OTP",
+        "back": "Back",
+        "complete": "Complete"
+      }
+    }
+  },
+
+  "Dashboard": {
+    "NonSkilledProvider": {
+      "Footer": {
+        "dashboard": "Dashboard",
+        "task": "Tasks",
+        "message": "Message",
+        "process": "Process",
+        "notification": "Notification"
+      },
+      "Header": {
+        "dashboard": "Dashboard",
+        "profileOptions": {
+          "profile": "Profile",
+          "history": "Work History",
+          "bank": "Bank",
+          "withdraw": "Withdraw",
+          "leaderBoard": "Leader Board",
+          "home": "Home",
+          "settings": "Settings",
+          "logout": "Logout"
+        }
+      }
+    }
+  }
+}

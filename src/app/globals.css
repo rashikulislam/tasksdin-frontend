@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-bengali: "Noto Sans Bengali", sans-serif;
+    /* Background & Base */
+    --background: 240 10% 98%;
+    --foreground: 230 13% 14%;
+
+    /* Card & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 230 13% 14%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 13% 14%;
+
+    /* Primary - Trust Blue */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 75%;
+
+    /* Secondary - Soft Blue-Gray */
+    --secondary: 225 15% 95%;
+    --secondary-foreground: 230 13% 14%;
+
+    /* Muted */
+    --muted: 225 15% 95%;
+    --muted-foreground: 230 7% 46%;
+
+    /* Accent - Energy Green */
+    --accent: 145 63% 56%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 145 63% 85%;
+
+    /* Success Green */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning */
+    --warning: 45 93% 58%;
+    --warning-foreground: 25 35% 15%;
+
+    /* Destructive */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 225 15% 89%;
+    --input: 225 15% 89%;
+    --ring: 217 91% 60%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(217 91% 60%),
+      hsl(217 91% 75%)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(145 63% 56%),
+      hsl(145 63% 75%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(217 91% 60%) 0%,
+      hsl(225 50% 75%) 50%,
+      hsl(145 63% 60%) 100%
+    );
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(225 15% 98%));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px hsl(217 91% 60% / 0.15);
+    --shadow-card: 0 2px 10px hsl(230 13% 14% / 0.08);
+    --shadow-glow: 0 0 30px hsl(217 91% 75% / 0.4);
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 75%;
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 145 63% 56%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 145 63% 85%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 58%;
+    --warning-foreground: 25 35% 15%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 217 91% 60%;
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(217 91% 60%),
+      hsl(217 91% 75%)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(145 63% 56%),
+      hsl(145 63% 75%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(217 91% 60%) 0%,
+      hsl(225 50% 75%) 50%,
+      hsl(145 63% 60%) 100%
+    );
+    --gradient-card: linear-gradient(145deg, hsl(222 84% 6%), hsl(217 33% 20%));
+    --shadow-soft: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 2px 10px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 30px hsl(217 91% 75% / 0.2);
+    --sidebar-background: 240 6% 10%;
+    --sidebar-foreground: 240 5% 96%;
+    --sidebar-primary: 224 76% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 16%;
+    --sidebar-accent-foreground: 240 5% 96%;
+    --sidebar-border: 240 4% 16%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+body {
+  font-family: var(--font-bengali);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Mobile-first responsive utilities */
+  .container-mobile {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+@layer components {
+  /* Mobile-optimized gradients */
+  .bg-gradient-mobile {
+    @apply bg-gradient-to-br from-primary/5 via-background to-accent/5;
+  }
+
+  /* Responsive text sizing */
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
+
+  /* Mobile-optimized cards */
+  .card-mobile {
+    @apply rounded-xl sm:rounded-2xl shadow-card hover:shadow-soft transition-all duration-300;
+  }
+
+  /* Touch-optimized buttons */
+  .btn-touch {
+    @apply touch-target rounded-xl font-medium transition-all duration-200;
+  }
+
+  /* Mobile-first grid layouts */
+  .grid-mobile-1 {
+    @apply grid grid-cols-1 gap-4 sm:gap-6;
+  }
+
+  .grid-mobile-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
+  }
+
+  .grid-mobile-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+  }
+
+  .grid-mobile-4 {
+    @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4;
+  }
+
+  /* Smooth animations */
+  .animate-fade-in-mobile {
+    @apply animate-fade-in-up;
+  }
+
+  /* Mobile navigation */
+  .nav-mobile {
+    @apply fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border z-40;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  padding-left: 10px;
+  padding-right: 10px;
+   margin: auto;
+}
+
+/* Custom Scrollbar */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 2px;
+}
+
+/* .custom-scrollbar::-webkit-scrollbar-track {
+  background: #f9fafb;
+  
+} */
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3c83f6;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3c83f6;
+}
+
+/* Hide Search Bar */
+.EmojiPickerReact .epr-search-container {
+  display: none !important;
+}
+
+/* Hide Category Labels */
+.EmojiPickerReact .epr-emoji-category-label {
+  display: none !important;
+}
+
+/* Remove top/bottom padding caused by labels */
+.EmojiPickerReact .epr-body {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Remove internal spacing of emoji list */
+.EmojiPickerReact .epr-emoji-list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Very important → remove the blank space reserved for first category */
+.EmojiPickerReact .epr-emoji-category[data-category-id="recent"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

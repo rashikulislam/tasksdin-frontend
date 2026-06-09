@@ -1,0 +1,259 @@
+{
+  "Navbar": {
+    "local": "স্থানীয় কাজ",
+    "freelancer": "ফ্রিল্যান্সার",
+    "more": "আরো",
+    "joinAsProviderBtn": "প্রোভাইডার হিসেবে যোগ দিন",
+    "getStarted": "লগইন করুন",
+    "joinGeneralProvider": "সাধারণ সরবরাহকারী হিসেবে যোগদান করুন",
+    "joinSkilledProvider": "দক্ষ সরবরাহকারী হিসেবে যোগদান করুন"
+  },
+  "HomePage": {
+    "Banner": {
+      "titlePart1": "স্বাগতম",
+      "titlePart2": "Tasks Din",
+      "description": "স্থানীয় কাজ থেকে পেশাদার ফ্রিল্যান্সিং পর্যন্ত সকল সেবার জন্য আপনার একক প্ল্যাটফর্ম",
+      "services": {
+        "service1": "তাৎক্ষণিক সেবা",
+        "serviceDescription1": "মিনিটের মধ্যে সেবা পান",
+        "service2": "নিরাপদ প্ল্যাটফর্ম",
+        "serviceDescription2": "নিরাপদ পেমেন্ট এবং যাচাইকৃত প্রদানকারী",
+        "service3": "মানের নিশ্চয়তা",
+        "serviceDescription3": "রেটেড প্রদানকারী এবং সন্তুষ্টির গ্যারান্টি"
+      }
+    },
+    "OurServices": {
+      "title": "আমাদের সেবাসমূহ",
+      "description": "আপনার প্রয়োজন অনুযায়ী তৈরি আমাদের বিস্তৃত সেবা থেকে বেছে নিন",
+      "servicesBtn": "এখনই অন্বেষণ করুন",
+      "services": [
+        {
+          "title": "   স্থানীয় কাজ",
+          "description": "আপনার দৈনন্দিন কাজ এবং ঘরের সেবার জন্য নিকটবর্তী সেবা প্রদানকারী খুঁজুন",
+          "features": [
+            "তাৎক্ষণিক বুকিং",
+            "যাচাইকৃত প্রদানকারী",
+            "লাইভ ট্র্যাকিং"
+          ],
+          "link": "/local-task"
+        },
+
+        {
+          "title": "ফ্রিল্যান্সার সেবা",
+          "description": "আপনার প্রকল্প এবং ব্যবসায়িক প্রয়োজনের জন্য দক্ষ ফ্রিল্যান্সার নিয়োগ দিন",
+          "features": [
+            "প্রকল্প ভিত্তিক কাজ",
+            "পোর্টফোলিও ও রিভিউ",
+            "নিরাপদ পেমেন্ট"
+          ],
+          "link": "/freelancer-services"
+        },
+
+        {
+          "title": "দক্ষ প্রদানকারী",
+          "description": "বিশেষায়িত সেবা এবং পরামর্শের জন্য পেশাদার বিশেষজ্ঞ",
+          "features": ["বিশেষজ্ঞ পেশাদার", "পরামর্শ সেবা", "প্রত্যয়িত দক্ষতা"],
+          "link": "/skill-provider"
+        },
+
+        {
+          "title": "সাধারণ প্রদানকারী",
+          "description": "দৈনন্দিন কাজ এবং সাধারণ সেবার জন্য নির্ভরযোগ্য সহায়তাকারী",
+          "features": ["দৈনন্দিন কাজ", "সাশ্রয়ী মূল্য", "দ্রুত সেবা"],
+          "link": "/general-provider"
+        }
+      ]
+    },
+
+    "ReadyToStart": {
+      "title": "শুরু করতে প্রস্তুত?",
+      "description": "হাজারো ব্যবহারকারীর সাথে যোগ দিন যারা তাদের সেবার জন্য আমাদের প্ল্যাটফর্মে আস্থা রাখেন",
+      "getServiceBtn": "সেবা নিন",
+      "becomeProvider": "প্রোভাইডার হন"
+    }
+  },
+
+  "LocalWorkPage": {
+    "Banner": {
+      "title": "স্থানীয় সেবা খুঁজুন",
+      "description": "আপনার আশেপাশে বিশ্বস্ত এবং দক্ষ সেবা প্রদানকারী খুঁজে পান। ঘর পরিষ্কার থেকে শুরু করে ডেলিভারি সেবা - সব এক জায়গায়।",
+      "btn": "সেবা খুঁজুন",
+      "feature1": {
+        "title": "নিরাপদ সেবা",
+        "description": "সকল প্রদানকারী যাচাই করা এবং নিরাপদ"
+      },
+      "feature2": {
+        "title": "গুণগত মান",
+        "description": "উচ্চ মানের সেবা নিশ্চিত করা হয়"
+      },
+      "feature3": {
+        "title": "অভিজ্ঞ কর্মী",
+        "description": "দক্ষ এবং অভিজ্ঞ সেবা প্রদানকারী"
+      }
+    },
+
+    "HowItWork": {
+      "title": "কিভাবে কাজ করে",
+      "description": "মাত্র তিন ধাপে পেয়ে যান আপনার কাঙ্ক্ষিত সেবা",
+      "btn": "সেবা খুঁজুন",
+      "feature1": {
+        "title": "সেবা নির্বাচন",
+        "number": "১",
+        "description": "আপনার প্রয়োজনীয় সেবা খুঁজে বেছে নিন"
+      },
+      "feature2": {
+        "title": "প্রদানকারী নির্বাচন",
+        "number": "২",
+        "description": "রেটিং ও রিভিউ দেখে সেরা প্রদানকারী বেছে নিন"
+      },
+      "feature3": {
+        "title": "সেবা গ্রহণ",
+        "number": "৩",
+        "description": "নির্ধারিত সময়ে সেবা গ্রহণ করুন"
+      }
+    },
+    "BecomeProvider": {
+      "title": "সেবা প্রদানকারী হতে চান?",
+      "description": "আমাদের সাথে যোগ দিয়ে আপনার দক্ষতা দিয়ে আয় করুন এবং মানুষের সেবা করুন",
+      "joinAsProvider": "প্রদানকারী হিসেবে যোগ দিন",
+      "more": "আরো জানুন"
+    }
+  },
+
+  "Footer": {
+    "companyDescription": "মুদিখানা থেকে ওষুধ সরবরাহ পর্যন্ত – নির্ভরযোগ্য সেবাদাতাদের কাছ থেকে যেকোনো সেবা পান।",
+    "services": "সেবা সমূহ",
+    "serviceList": [
+      "লোকাল টাস্ক",
+      "ফ্রিল্যান্সার",
+      "অ্যাকাডেমিক ও অফিস সহায়তা",
+      "হোম সার্ভিস"
+    ],
+    "company": "কোম্পানি",
+    "companyLinks": [
+      { "label": "সম্পর্কে", "href": "/footer-pages/about" },
+      { "label": "কীভাবে কাজ করে", "href": "/footer-pages/how-it-works" },
+      { "label": "চাকরির সুযোগ", "href": "/footer-pages/careers" },
+      { "label": "যোগাযোগ", "href": "/footer-pages/contact" }
+    ],
+    "support": "সহায়তা",
+    "supportLinks": [
+      { "label": "হেল্প সেন্টার", "href": "/footer-pages/help-center" },
+      { "label": "নিরাপত্তা", "href": "/footer-pages/safety" },
+      { "label": "গোপনীয়তা নীতি", "href": "/footer-pages/privacy-policy" },
+      { "label": "সেবার শর্তাবলী", "href": "/footer-pages/terms" },
+      { "label": "রিফান্ড নীতি", "href": "/footer-pages/refund-policy" }
+    ],
+    "paymentMethods": "পেমেন্ট পদ্ধতি",
+    "payments": ["ভিসা/মাস্টারকার্ড", "বিকাশ", "নগদ", "রকেট"],
+    "copyright": "© ২০২৪ টাস্কস দিন। সর্বস্বত্ব সংরক্ষিত।",
+    "downloadApp": "অ্যাপ ডাউনলোড করুন",
+    "address": "ঢাকা, বাংলাদেশ",
+    "phone": "+৮৮০ ১XX XXX XXXX",
+    "email": "contact@tasksdin.com",
+    "language": "ভাষা"
+  },
+
+  "Auth": {
+    "SignIn": {
+      "title": "লগইন করুন",
+      "description": "অ্যাক্সেস করতে আপনার ইমেইল এবং পাসওয়ার্ড দিন",
+      "email": "ইমেইল",
+      "password": "পাসওয়ার্ড",
+      "forgot": "পাসওয়ার্ড ভুলে গেছেন?",
+      "login": "লগইন",
+      "or": "অথবা",
+      "google": "গুগল দিয়ে লগইন করুন",
+      "createAccount": "নতুন অ্যাকাউন্ট তৈরি করুন"
+    },
+
+    "ConsumerRegister": {
+      "createConsumer": "নিবন্ধন করুন",
+      "description": "শুরু করতে আপনার তথ্য পূরণ করুন",
+      "firstName": "প্রথম নাম",
+      "lastName": "শেষ নাম",
+      "email": "ইমেইল",
+      "phone": "ফোন নম্বর",
+      "gender": "লিঙ্গ",
+      "nid": "এনআইডি তথ্য",
+      "password": "পাসওয়ার্ড",
+      "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+      "register": "রেজিস্টার",
+      "alreadyAccount": "ইতিমধ্যেই একটি একাউন্ট আছে?",
+      "login": "লগইন"
+    },
+
+    "ProviderRegister": {
+      "FirstPage": {
+        "title": "নিবন্ধন করুন",
+        "description": "নিবন্ধনের জন্য নিচের ফর্মটি পূরণ করুন।",
+        "step": "ধাপ",
+        "name": "পূর্ণ নাম",
+        "namePlaceholder": "আপনার পূর্ণ নাম লিখুন",
+        "email": "ইমেল",
+        "phone": "ফোন নম্বর",
+        "phonePlaceholder": "+8801XXXXXXXXX",
+        "nid": "জাতীয় পরিচয়পত্র / পাসপোর্ট",
+        "nidPlaceholder": "আপনার NID বা পাসপোর্ট নম্বর লিখুন",
+        "password": "পাসওয়ার্ড",
+        "next": "পরবর্তী",
+        "back": "ফিরে যান",
+        "haveAccount": "ইতিমধ্যেই একটি একাউন্ট আছে?",
+        "login": "লগইন করুন"
+      },
+
+      "SecondPage": {
+        "step": "ধাপ",
+        "nidTitle": "NID ভেরিফিকেশন",
+        "nidDescription": "আপনার জাতীয় পরিচয়পত্র বা পাসপোর্ট আপলোড করুন।",
+        "uploadPlaceholder": "NID/পাসপোর্ট আপলোড করুন",
+        "selectFile": "ফাইল নির্বাচন করুন",
+        "fileUploaded": "ফাইল আপলোড সম্পন্ন - ভেরিফিকেশন প্রক্রিয়াধীন",
+        "next": "পরবর্তী",
+        "back": "ফিরে যান",
+        "fileMissingTitle": "কোনও ফাইল নির্বাচিত হয়নি",
+        "fileMissingDesc": "অগ্রসর হওয়ার জন্য আপনার NID বা পাসপোর্ট আপলোড করুন।"
+      },
+      "ThirdPage": {
+        "step": "ধাপ",
+        "phoneVerificationTitle": "ফোন নম্বর ভেরিফিকেশন",
+        "phoneVerificationDesc": "{phone} এই নম্বরে একটি 6-সংখ্যার OTP পাঠানো হয়েছে",
+        "otpLabel": "OTP/SMS কোড",
+        "otpMissingTitle": "OTP অনুপস্থিত",
+        "otpMissingDesc": "আপনার ফোনে পাঠানো 6-সংখ্যার OTP প্রবেশ করুন।",
+        "otpVerifiedTitle": "OTP যাচাই হয়েছে",
+        "otpVerifiedDesc": "আপনার ফোন নম্বর সফলভাবে যাচাই হয়েছে।",
+        "otpResentTitle": "OTP পুনঃপ্রেরণ হয়েছে",
+        "otpResentDesc": "আপনার ফোনে একটি নতুন OTP পাঠানো হয়েছে।",
+        "resendOTP": "পুনরায় কোড পাঠান",
+        "back": "ফিরে যান",
+        "complete": "সম্পন্ন করুন"
+      }
+    }
+  },
+
+  "Dashboard": {
+    "NonSkilledProvider": {
+      "Footer": {
+        "dashboard": "ড্যাশবোর্ড",
+        "task": "কাজ",
+        "message": "সম্পন্ন",
+        "process": "অপেক্ষমান",
+        "notification": "নোটিফিকেশন"
+      },
+      "Header": {
+        "dashboard": "ড্যাশবোর্ড",
+        "profileOptions": {
+          "profile": "প্রোফাইল",
+          "history": "কাজের ইতিহাস",
+          "bank": "ব্যাংক",
+          "withdraw": "উত্তোলন",
+          "leaderBoard": "লিডারবোর্ড",
+          "home": "হোম",
+          "settings": "সেটিংস",
+          "logout": "লগআউট"
+        }
+      }
+    }
+  }
+}

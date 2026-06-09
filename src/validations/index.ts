@@ -30,7 +30,7 @@ export const consumerRegSchemaPageOneEn = z.object({
   full_name: z.string().min(2, "Full name required"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
+    .min(8, "Password must be at least 8 characters")
     .max(15, "Password too long"),
   accept_terms: z.literal(true, { error: "You must accept the Terms & Conditions." }),
 });
@@ -41,7 +41,7 @@ export const consumerRegSchemaPageOneBn = z.object({
   full_name: z.string().min(2, "নাম আবশ্যক"),
   password: z
     .string()
-    .min(6, "পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে")
+    .min(8, "পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে")
     .max(15, "পাসওয়ার্ড অনেক বড়"),
   accept_terms: z.literal(true, { error: "শর্তাবলী মেনে নিতে হবে।" }),
 });

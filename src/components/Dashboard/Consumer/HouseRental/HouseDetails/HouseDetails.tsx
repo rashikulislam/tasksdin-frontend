@@ -22,7 +22,7 @@ interface HouseDetailsProps {
   userLocation?: { lat: number; lng: number } | null;
   onBookingComplete?: (
     paymentDetails: PaymentDetails,
-    moveInDate: Date | undefined,
+    moveInDate: Date,
   ) => void;
 }
 
@@ -56,7 +56,7 @@ const HouseDetails = ({
   };
 
   const handlePaymentSuccess = (paymentDetails: PaymentDetails) => {
-    onBookingComplete?.(paymentDetails, bookingDate);
+    onBookingComplete?.(paymentDetails, bookingDate!);
 
     toast({
       title: "বুকিং সফল!",

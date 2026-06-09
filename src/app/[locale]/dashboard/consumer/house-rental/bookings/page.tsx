@@ -16,11 +16,7 @@ const HouseBookingsPage = () => {
         house={selectedHouse}
         userLocation={userLocation}
         onBookingComplete={(paymentDetails, moveInDate) =>
-          handleBookingComplete(
-            selectedHouse,
-            paymentDetails,
-            moveInDate ?? new Date(),
-          )
+          handleBookingComplete(selectedHouse, paymentDetails, moveInDate)
         }
       />
     );

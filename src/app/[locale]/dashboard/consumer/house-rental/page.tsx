@@ -28,7 +28,6 @@ const HouseFindPage = () => {
         <div className="container-mobile py-4">
           {/* House Filters */}
           <HouseFilters />
-
         </div>
       </div>
       <div className="container-mobile py-6">

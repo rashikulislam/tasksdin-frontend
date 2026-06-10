@@ -78,6 +78,8 @@ const KycCallbackPage = () => {
             <ShieldCheck className="h-12 w-12 text-green-500 mx-auto" />
           ) : isDeclined ? (
             <ShieldAlert className="h-12 w-12 text-red-500 mx-auto" />
+          ) : timedOut ? (
+            <ShieldAlert className="h-12 w-12 text-orange-400 mx-auto" />
           ) : (
             <Loader2 className="h-12 w-12 text-blue-500 mx-auto animate-spin" />
           )}
@@ -87,6 +89,8 @@ const KycCallbackPage = () => {
               ? "Verification Successful!"
               : isDeclined
               ? "Verification Not Successful"
+              : timedOut
+              ? "Still Processing"
               : "Processing Your Verification…"}
           </CardTitle>
 

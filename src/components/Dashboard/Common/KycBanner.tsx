@@ -13,7 +13,8 @@ const KycBanner = ({ kycPath }: KycBannerProps) => {
   const pathname = usePathname();
   const { loading, isVerified, kycState, kyc } = useKycStatus();
 
-  // Don't render while loading, when verified, or when already on the KYC page
+  // Don't render while loading, when verified, when already on the KYC page,
+  // or when KYC has been submitted and is pending review.
   if (loading || isVerified || pathname.includes("/kyc")) return null;
 
   const configs = {
@@ -55,7 +56,9 @@ const KycBanner = ({ kycPath }: KycBannerProps) => {
     },
   } as const;
 
-  if (!kycState || kycState === "APPROVED") return null;
+  // PENDING = submitted, waiting for admin review — no reminder needed.
+  // Banner only shows for NOT_SUBMITTED (first-time prompt) and REJECTED (resubmit).
+  if (!kycState || kycState === "APPROVED" || kycState === "PENDING") return null;
   const { bg, text, Icon, title, message, action } = configs[kycState];
 
   return (

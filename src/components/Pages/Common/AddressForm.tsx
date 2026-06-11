@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -14,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MapPin, ArrowRight, Loader2, LocateFixed, CheckCircle2 } from "lucide-react";
+import { MapPin, ArrowRight, Loader2 } from "lucide-react";
 import { showToast } from "@/components/Reusable/CustomToast";
 import { useSaveAddressMutation } from "@/redux/features/auth.features";
 import { addressSchemaEn } from "@/validations";
@@ -29,8 +28,6 @@ interface AddressFormProps extends TSetPage {
 
 const AddressForm = ({ pages, steps, dashboardPath }: AddressFormProps) => {
   const [saveAddress, { isLoading }] = useSaveAddressMutation();
-  const [isLocating, setIsLocating] = useState(false);
-  const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null);
   const router = useRouter();
 
   const {
@@ -42,45 +39,10 @@ const AddressForm = ({ pages, steps, dashboardPath }: AddressFormProps) => {
     defaultValues: { address: "", referral_code: "" },
   });
 
-  const handleDetectLocation = () => {
-    if (!navigator.geolocation) {
-      return showToast({
-        type: "error",
-        description: "Geolocation is not supported by your browser.",
-      });
-    }
-
-    setIsLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCoords({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-        setIsLocating(false);
-        showToast({
-          type: "success",
-          title: "Location detected",
-          description: "Your current location has been captured.",
-        });
-      },
-      () => {
-        setIsLocating(false);
-        showToast({
-          type: "error",
-          description: "Unable to detect your location. Please allow location access and try again.",
-        });
-      },
-      { enableHighAccuracy: true, timeout: 10000 },
-    );
-  };
-
   const onSubmit: SubmitHandler<AddressFormData> = async (data) => {
     try {
       const result = await saveAddress({
         address: data.address,
-        latitude: coords?.latitude,
-        longitude: coords?.longitude,
         referral_code: data.referral_code?.trim() ? data.referral_code.trim() : undefined,
       }).unwrap();
       if (result?.success) {
@@ -135,39 +97,6 @@ const AddressForm = ({ pages, steps, dashboardPath }: AddressFormProps) => {
                 />
                 {errors.address && (
                   <p className="text-xs text-red-500">{errors.address.message}</p>
-                )}
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <Label>Current Live Location</Label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleDetectLocation}
-                  disabled={isLocating}
-                  className="w-full justify-center cursor-pointer"
-                >
-                  {isLocating ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Detecting…
-                    </>
-                  ) : coords ? (
-                    <>
-                      <CheckCircle2 className="h-4 w-4 mr-2 text-green-600" />
-                      Location captured
-                    </>
-                  ) : (
-                    <>
-                      <LocateFixed className="h-4 w-4 mr-2" />
-                      Use my current location
-                    </>
-                  )}
-                </Button>
-                {coords && (
-                  <p className="text-xs text-muted-foreground">
-                    Lat: {coords.latitude.toFixed(6)}, Lng: {coords.longitude.toFixed(6)}
-                  </p>
                 )}
               </div>
 

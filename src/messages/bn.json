@@ -245,6 +245,7 @@
         "dashboard": "ড্যাশবোর্ড",
         "profileOptions": {
           "profile": "প্রোফাইল",
+          "payment": "পেমেন্ট",
           "history": "কাজের ইতিহাস",
           "bank": "ব্যাংক",
           "withdraw": "উত্তোলন",
@@ -253,6 +254,62 @@
           "settings": "সেটিংস",
           "logout": "লগআউট"
         }
+      }
+    },
+    "Consumer": {
+      "PostedTasks": {
+        "title": "সকল টাস্ক",
+        "description": "আপনার সকল পোস্ট করা টাস্ক দেখুন এবং পরিচালনা করুন",
+        "taskCount": "{count} টাস্ক",
+        "status": {
+          "pending": "Pending",
+          "onGoing": "চলমান",
+          "complete": "সম্পন্ন",
+          "deny": "বাতিল",
+          "unknown": "অজানা"
+        },
+        "columns": {
+          "price": "মূল্য",
+          "proposals": "প্রস্তাবনা",
+          "posted": "পোস্ট করা হয়েছে",
+          "deadline": "সময় শেষ হবে",
+          "serviceType": "সার্ভিসের ধরণ"
+        },
+        "viewProposals": "{count} প্রস্তাবনা দেখুন",
+        "noProposals": "কোন প্রস্তাবনা নেই",
+        "taskMenu": {
+          "edit": "টাস্ক সম্পাদনা",
+          "delete": "টাস্ক মুছে ফেলুন"
+        },
+        "deleteDialog": {
+          "title": "টাস্ক মুছে ফেলুন",
+          "description": "আপনি কি নিশ্চিত যে এই টাস্কটি মুছে ফেলতে চান? এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না।",
+          "cancel": "বাতিল",
+          "confirm": "মুছে ফেলুন"
+        },
+        "emptyState": {
+          "message": "কোনো টাস্ক নেই",
+          "description": "আপনার কোনো পোস্ট করা টাস্ক নেই"
+        },
+        "errorState": {
+          "message": "ডাটা লোড করতে সমস্যা হয়েছে",
+          "description": "দয়া করে পেজটি রিফ্রেশ করুন অথবা পরে আবার চেষ্টা করুন।"
+        }
+      },
+      "Proposals": {
+        "backButton": "ফিরে যান",
+        "proposalCount": "{count} প্রস্তাবনা",
+        "successRate": "সফলতার হার",
+        "jobCount": "কাজের সংখ্যা",
+        "rating": "রেটিং",
+        "proposal": "প্রস্তাব",
+        "proposedPrice": "প্রস্তাবিত মূল্য",
+        "hire": "হায়ার করুন",
+        "message": "মেসেজ করুন",
+        "noProposals": "কোনো প্রস্তাবনা নেই",
+        "noProposalsDesc": "এখনও কোনো প্রস্তাবনা জমা হয়নি।",
+        "errorMsg": "প্রস্তাবনা লোড করতে সমস্যা হয়েছে",
+        "errorDesc": "দয়া করে রিফ্রেশ করুন বা পরে আবার চেষ্টা করুন।"
       }
     }
   }

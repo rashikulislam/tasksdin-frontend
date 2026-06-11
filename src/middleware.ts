@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const response = intlMiddleware(request);
   const token = request.cookies.get(authKey)?.value;
-  const locale = request.cookies.get("NEXT_LOCALE")?.value || "en";
+  const locale = request.cookies.get("NEXT_LOCALE")?.value || "bn";
 
   // Decode token if exists
   let userinfo: TToken | undefined;

@@ -1,28 +1,29 @@
 "use client";
+import UnskilledTaskFeed from "@/components/Dashboard/UnskilledProvider/DashboardContent/TaskFeed";
+import { ManageStatusState } from "@/components/Reusable/ManageStatusState";
+import TaskFeedSkeleton from "@/components/Skeletons/TaskFeedSkeleton";
+import { useGetIncompleteTasksQuery } from "@/redux/features/NonSkilledConsumer.feature";
 
-import { VerificationModal } from "@/components/Modal/VerificationModal";
-import useProviderVerified from "@/hooks/useProviderVerified";
-import { useState } from "react";
+const UnskilledProviderDashboard = () => {
+  const { data, isLoading, isError } = useGetIncompleteTasksQuery(undefined);
 
-const Dashboard = () => {
-  // const { loading, data } = useProviderVerified();
-  // const isVerified = data?.is_verified;
-  // const [isModalOpen, setIsModalOpen] = useState(!isVerified);
-  // if (loading) {
-  //   return;
-  // }
+  const tasks = data?.data || [];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Your dashboard content goes here */}
-      <h1 className="py-20">dhewdwueifyewryh</h1>
-      {/* Verification Modal */}
-      {/* <VerificationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      /> */}
+    <div className="pb-[65px] lg:pb-0">
+      {isLoading ? (
+        <TaskFeedSkeleton />
+      ) : isError ? (
+        <ManageStatusState
+          type="error"
+          message="ডাটা লোড করতে সমস্যা হয়েছে"
+          description="দয়া করে পেজটি রিফ্রেশ করুন অথবা পরে আবার চেষ্টা করুন।"
+        />
+      ) : (
+        <UnskilledTaskFeed tasks={tasks} />
+      )}
     </div>
   );
 };
 
-export default Dashboard;
+export default UnskilledProviderDashboard;

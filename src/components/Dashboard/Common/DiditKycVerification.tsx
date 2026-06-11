@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { ShieldCheck, ShieldAlert, ShieldX, Loader2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +29,7 @@ const STATUS_BADGES: Record<string, { label: string; variant: "default" | "secon
 
 const DiditKycVerification = ({ dashboardPath }: DiditKycVerificationProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { data, isFetching } = useGetDiditKycStatusQuery(undefined);
   const [createSession, { isLoading: isStarting }] = useCreateDiditKycSessionMutation();
 
@@ -39,7 +40,12 @@ const DiditKycVerification = ({ dashboardPath }: DiditKycVerificationProps) => {
 
   const handleStartVerification = async () => {
     try {
-      const result = await createSession(undefined).unwrap();
+      // Derive the locale from the current pathname (e.g. "/en/dashboard/..." → "en")
+      // so the Didit callback always redirects back to the same host and locale.
+      const locale = pathname.split("/")[1] || "en";
+      const redirect_url = `${window.location.origin}/${locale}/kyc-callback`;
+
+      const result = await createSession({ redirect_url }).unwrap();
       const sessionUrl = result?.data?.session_url;
       if (!sessionUrl) {
         return showToast({ type: "error", description: "Failed to start verification. Please try again." });

@@ -5,6 +5,7 @@ import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { NavigationLinks } from "./NavigationLinks";
 import { PostTaskButton } from "./PostTaskButton";
 import { ThemeToggle } from "@/components/Reusable/ThemeToggle";
+import LanguageSwitcher from "@/components/Reusable/LanguageSwitcher";
 import UserProfileMenu from "@/components/Dashboard/Common/UserProfileMenu";
 import NavLogo from "@/components/Shared/Navbar/NavLogo";
 import MobileMenu from "./MobileMenu";
@@ -23,11 +24,11 @@ interface UserDashboardNavigationProps {
 
 const LocalTasksHeader = ({
   user = {
-    name: "রহিম আহমেদ",
-    email: "rahim@example.com",
+    name: "",
+    email: "",
     avatar: "",
-    activeContracts: 3,
-    unreadMessages: 5,
+    activeContracts: 0,
+    unreadMessages: 0,
   },
 }: UserDashboardNavigationProps) => {
   const [isPostTaskOpen, setIsPostTaskOpen] = useState(false);
@@ -116,8 +117,8 @@ const LocalTasksHeader = ({
 
             <LocationManage />
             {/* <PostTaskButton onClick={() => setIsPostTaskOpen(true)} /> */}
-            {/* <ThemeToggle /> */}
-            {/* <LanguageSwitcher /> */}
+            <ThemeToggle />
+            <LanguageSwitcher />
             <NotificationBell />
             <UserProfileMenu
               menuItems={[

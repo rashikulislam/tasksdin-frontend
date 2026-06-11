@@ -16,8 +16,19 @@ const conversationApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    createConversation: builder.mutation({
+      query: (body: { receiverId: string }) => ({
+        url: `/conversation/create`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetConversationsQuery, useGetFullConversationQuery } =
-  conversationApi;
+export const {
+  useGetConversationsQuery,
+  useGetFullConversationQuery,
+  useCreateConversationMutation,
+} = conversationApi;

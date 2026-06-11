@@ -48,6 +48,7 @@ export interface IProposal {
     longitude: number;
     latitude: number;
   };
+  conversation?: { id: string };
 }
 
 export default function ProposalsList({ taskId }: ProposalsListProps) {

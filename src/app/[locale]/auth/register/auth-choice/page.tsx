@@ -23,8 +23,8 @@ const roles: {
 }[] = [
   {
     id: "provider",
-    title: "সার্ভিস প্রোভাইডার হিসেবে",
-    description: "কাজ করে আয় করুন এবং আপনার দক্ষতা কাজে লাগান",
+    title: "সার্ভিস প্রোভায়ার হিসেবে",
+    description: "কাজ করে আয় করুন এবং আপনার দক্ষতা কাজে লাগান",
     icon: Users,
     iconBg: "bg-gradient-accent",
     bulletColor: "bg-accent",
@@ -33,23 +33,38 @@ const roles: {
       "নিজেই আপনার রেট ঠিক করুন",
       "নিরাপদ পেমেন্ট সিস্টেম",
     ],
-    registerText: "প্রোভাইডার হিসেবে রেজিস্টার করুন",
+    registerText: "প্রোভায়ার হিসেবে রেজিস্টার করুন",
     registerLink: "/auth/register/general",
   },
   {
     id: "task-giver",
     title: "কাজ দাতা হিসেবে",
-    description: "আপনার কাজ পোস্ট করুন এবং বিশ্বস্ত লোক নিয়োগ দিন",
+    description: "আপনার কাজ পোস্ট করুন এবং বিশ্বস্ত লোক নিয়োগ দিন",
     icon: MapPin,
     iconBg: "bg-gradient-primary",
     bulletColor: "bg-primary",
     features: [
       "যেকোনো কাজ পোস্ট করুন",
       "একাধিক প্রস্তাব থেকে বাছাই করুন",
-      "ভেরিফায়েড ও রেটেড প্রোভাইডার",
+      "ভেরিফায়ড ো রেটেড প্রোভায়ার",
     ],
     registerText: "কাজ দাতা হিসেবে রেজিস্টার করুন",
     registerLink: "/auth/register/consumer",
+  },
+  {
+    id: "agent",
+    title: "এজেন্ট পার্টনার হিসেবে",
+    description: "আপনার এলাকায় প্ল্যাটফর্ম পরিচালনা করুন এবং কমিশন আয় করুন",
+    icon: UserCog,
+    iconBg: "bg-gradient-to-br from-emerald-500 to-teal-600",
+    bulletColor: "bg-emerald-500",
+    features: [
+      "১ কিমি এলাকার দায়িত্ব নিন",
+      "প্রতিটি কাজে ৫০% কমিশন পান",
+      "বিরোধ নিষ্পত্তিতে ভূমিকা রাখুন",
+    ],
+    registerText: "এজেন্ট পার্টনার হিসেবে রেজিস্টার করুন",
+    registerLink: "/auth/register/agent",
   },
 ];
 
@@ -61,7 +76,7 @@ const RoleSelectionCards = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/10 to-primary/5 flex items-center justify-center py-10 md:py-0">
       <div className="w-full max-w-7xl px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-10">
-          আপনি কোন ভূমিকায় যোগ দিতে চান?
+          {"আপনি কোন ভূমিকায় যোগ দিতে চান?"}
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

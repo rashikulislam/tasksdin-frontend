@@ -31,11 +31,13 @@ export const NotificationBell = ({ className = "" }: NotificationBellProps) => {
   // Real-time notifications from Socket.IO
   const socketNotifications = useSocketStore((state) => state.notifications);
 
-  // Merge backend + socket notifications safely
+  // Merge backend + socket notifications, deduplicated by id
   const allNotifications = [
     ...(Array.isArray(notifications) ? notifications : []),
     ...(Array.isArray(socketNotifications) ? socketNotifications : []),
-  ];
+  ].filter(
+    (n, index, arr) => arr.findIndex((x) => x.id === n.id) === index,
+  );
 
   // Track unread notifications
   const unreadCount = allNotifications.filter((n) => !n.is_read).length;
@@ -43,16 +45,20 @@ export const NotificationBell = ({ className = "" }: NotificationBellProps) => {
   const [prevUnread, setPrevUnread] = useState(unreadCount);
 
   useEffect(() => {
-    if (unreadCount > prevUnread) {
-      if (socketNotifications.length) {
-        const notificationSound = new Audio(
-          "https://orangefreesounds.com/wp-content/uploads/2023/04/Soft-bell-notification-tone.mp3",
-        );
-
-        notificationSound
-          .play()
-          .catch((err) => console.error("Play failed:", err));
-      }
+    if (unreadCount > prevUnread && socketNotifications.length) {
+      try {
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 880;
+        osc.type = "sine";
+        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.35);
+      } catch { /* AudioContext unavailable — skip */ }
     }
     setPrevUnread(unreadCount);
   }, [unreadCount, prevUnread, socketNotifications.length]);
@@ -102,9 +108,9 @@ export const NotificationBell = ({ className = "" }: NotificationBellProps) => {
             </p>
           ) : (
             <div className="space-y-2">
-              {allNotifications?.map((notification: INotification) => (
+              {allNotifications?.map((notification: INotification, index: number) => (
                 <div
-                  key={notification?.id}
+                  key={notification?.id ?? `notif-${index}`}
                   className={`p-3 rounded-lg border ${
                     !notification?.is_read ? "bg-muted/50" : "bg-background"
                   }`}
@@ -121,15 +127,17 @@ export const NotificationBell = ({ className = "" }: NotificationBellProps) => {
                         <p className="text-xs text-muted-foreground">
                           {moment(notification?.createdAt).format("lll")}
                         </p>
-                        <Link
-                          href={notification?.route as string}
-                          className="text-xs underline"
-                          onClick={() =>
-                            handleRedNotification(notification?.id)
-                          }
-                        >
-                          View
-                        </Link>
+                        {notification?.route && (
+                          <Link
+                            href={notification.route}
+                            className="text-xs underline"
+                            onClick={() =>
+                              handleRedNotification(notification.id)
+                            }
+                          >
+                            View
+                          </Link>
+                        )}
                       </div>
                     </div>
                     {/* <div className="flex items-center space-x-1 ml-2">

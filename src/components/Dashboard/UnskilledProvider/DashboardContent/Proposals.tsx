@@ -7,6 +7,7 @@ import { MapPin, Eye, Calendar } from "lucide-react";
 import Link from "next/link";
 import { useGetProviderProposalsQuery } from "@/redux/features/proposal.nonskill.features";
 import { IProposal } from "@/interfaces/proposal";
+import { calculateDistance } from "@/components/Dashboard/Common/utils/calculateDistance";
 import moment from "moment";
 import ProposalsSkeleton from "@/components/Skeletons/ProposalsSkeleton";
 import { ManageStatusState } from "@/components/Reusable/ManageStatusState";
@@ -131,7 +132,14 @@ const UnskilledProviderProposals = () => {
                       <MapPin className="w-3 h-3" />
                       Distance
                     </p>
-                    <p className="text-lg font-medium">{"2 KM"}</p>
+                    <p className="text-lg font-medium">
+                      {proposal.latitude && proposal.longitude && proposal.task?.latitude && proposal.task?.longitude
+                        ? `${calculateDistance(
+                            { lat1: proposal.latitude, lng1: proposal.longitude },
+                            { lat2: proposal.task.latitude, lng2: proposal.task.longitude },
+                          ).toFixed(1)} কিমি`
+                        : "—"}
+                    </p>
                   </div>
                 </div>
 

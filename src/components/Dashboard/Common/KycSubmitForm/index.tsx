@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { showToast } from "@/components/Reusable/CustomToast";
 import { useSubmitKycMutation, useGetKycStatusQuery } from "@/redux/features/kyc.feature";
+import { LiveSelfieCapture } from "./LiveSelfieCapture";
 
 type DocType = "NID" | "PASSPORT";
 type FileField = "nid_front" | "nid_back" | "passport_img" | "live_image";
@@ -94,6 +95,11 @@ const KycSubmitForm = ({ dashboardPath }: KycSubmitFormProps) => {
     setFiles((prev) => ({ ...prev, [field]: file }));
     const url = URL.createObjectURL(file);
     setPreviews((prev) => ({ ...prev, [field]: url }));
+  };
+
+  const handleLiveCapture = (file: File) => {
+    setFiles((prev) => ({ ...prev, live_image: file }));
+    setPreviews((prev) => ({ ...prev, live_image: URL.createObjectURL(file) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -282,21 +288,18 @@ const KycSubmitForm = ({ dashboardPath }: KycSubmitFormProps) => {
             </>
           )}
 
-          {/* Live selfie — always required */}
+          {/* Live selfie — always required, camera-only (no manual upload) */}
           <div className="flex flex-col gap-1.5">
             <Label className="text-sm font-medium flex items-center gap-1.5">
               <Camera className="h-4 w-4" />
               Live Selfie Photo <span className="text-red-500">*</span>
             </Label>
             <p className="text-xs text-muted-foreground -mt-1">
-              Take a clear photo of your face. Must match your document.
+              Your photo is captured live — smile or turn your head to trigger it.
             </p>
-            <FileUploadBox
-              label=""
-              field="live_image"
+            <LiveSelfieCapture
+              onCapture={handleLiveCapture}
               preview={previews.live_image ?? null}
-              onChange={handleFileChange}
-              required
             />
           </div>
 

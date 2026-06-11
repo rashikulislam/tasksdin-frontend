@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-type ToastType = "success" | "error";
+type ToastType = "success" | "error" | "info";
 
 interface IToastOptions {
   type: ToastType;
@@ -17,5 +17,7 @@ export const showToast = ({ type, title, description }: IToastOptions) => {
     toast.success(title, options);
   } else if (type === "error") {
     toast.error(title, options);
+  } else if (type === "info") {
+    toast.info(title, options);
   }
 };

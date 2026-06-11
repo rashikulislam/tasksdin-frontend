@@ -1,27 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 import {
-  LogOut,
   BarChart3,
   Users,
   ClipboardList,
-  Link as LinkIcon,
   DollarSign,
   Wallet,
-  Settings,
-  Languages,
   Sun,
   Moon,
+  Languages,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Toggle } from "@/components/ui/toggle";
 import { PartnerData } from "../Data/types";
 import { useTheme } from "next-themes";
-import { Toggle } from "@/components/ui/toggle";
 import MobileMenu from "@/components/Dashboard/Consumer/LocalTasks/navigation/MobileMenu";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -55,12 +52,6 @@ const navigationItems = [
     path: "/dashboard/agent/bua-contracts",
   },
   {
-    id: "referrals",
-    label: "রেফারেল",
-    icon: LinkIcon,
-    path: "/dashboard/agent/referrals",
-  },
-  {
     id: "earnings",
     label: "আয়",
     icon: DollarSign,
@@ -72,30 +63,6 @@ const navigationItems = [
     icon: Wallet,
     path: "/dashboard/agent/withdraw",
   },
-  {
-    id: "settings",
-    label: "সেটিংস",
-    icon: Settings,
-    path: "/dashboard/agent/settings",
-  },
-  {
-    id: "settings1",
-    label: "সেটিংস",
-    icon: Settings,
-    path: "/dashboard/agent/settings",
-  },
-  {
-    id: "settings11",
-    label: "সেটিংস",
-    icon: Settings,
-    path: "/dashboard/agent/settings",
-  },
-  {
-    id: "settings111",
-    label: "সেটিংস",
-    icon: Settings,
-    path: "/dashboard/agent/settings",
-  },
 ];
 
 const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
@@ -104,14 +71,15 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const { theme, setTheme } = useTheme();
-  const [language, setLanguage] = useState<"en" | "bn">("bn");
+  const locale = useLocale() as "en" | "bn";
 
-  const toggleLanguage = () =>
-    setLanguage((prev) => (prev === "bn" ? "en" : "bn"));
-
-  const isActive = (path: string) => {
-    return pathname === path;
+  const toggleLanguage = () => {
+    const newLocale = locale === "en" ? "bn" : "en";
+    const currentPath = window.location.pathname + window.location.search;
+    window.location.href = `/api/set-locale?locale=${newLocale}&redirect=${encodeURIComponent(currentPath)}`;
   };
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <div>
@@ -119,7 +87,6 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
         <MobileMenu items={[]} />
       ) : (
         <div className="hidden lg:flex w-64 h-screen bg-card border-r border-border sticky top-0 flex-col">
-          {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto custom-scrollbar p-4">
             <div className="mb-8">
               <h1 className="text-xl font-bold text-primary">Agent Partner</h1>
@@ -137,12 +104,10 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
                     {partnerData.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
-
                 <div>
                   <p className="font-semibold">{partnerData.name}</p>
                 </div>
               </div>
-
               <div className="text-sm text-muted-foreground">
                 যোগদান: {partnerData.joinDate}
               </div>
@@ -153,7 +118,6 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
               {navigationItems.map((item) => {
                 const active = isActive(item.path);
                 const Icon = item.icon;
-
                 return (
                   <Link
                     key={item.id}
@@ -173,7 +137,6 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
 
             {/* Toggles */}
             <div className="border-t border-border mt-6 pt-4 flex flex-col gap-2">
-              {/* Theme */}
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2">
                   {theme === "dark" ? (
@@ -195,19 +158,18 @@ const AgentPartnerSidebar: React.FC<AgentPartnerSidebarProps> = ({
                 </Toggle>
               </div>
 
-              {/* Language */}
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2">
                   <Languages className="h-4 w-4" />
                   ভাষা
                 </span>
                 <Toggle
-                  pressed={language === "en"}
+                  pressed={locale === "bn"}
                   onPressedChange={toggleLanguage}
                   size="sm"
                   variant="outline"
                 >
-                  {language === "bn" ? "EN" : "বাং"}
+                  {locale === "bn" ? "EN" : "বাং"}
                 </Toggle>
               </div>
             </div>

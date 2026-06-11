@@ -21,6 +21,15 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
 
+    // CREATE AGENT PARTNER ACCOUNT
+    createAgentAccount: builder.mutation({
+      query: (payload) => ({
+        url: "/user/register/agent",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
     // Phone OTP verification is disabled — see twilio_helper.ts on the backend.
     // verifyPhone / resendPhoneOtp endpoints are kept commented out below in
     // case phone OTP needs to be re-enabled later.
@@ -59,6 +68,14 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
 
+    // GET OWN PROFILE (name + avatar for any authenticated role)
+    getMyProfile: builder.query({
+      query: () => ({
+        url: "/user/me",
+        method: "GET",
+      }),
+    }),
+
     // SAVE PROFILE (final onboarding step — address + GPS location + referral code)
     saveAddress: builder.mutation({
       query: (payload: {
@@ -78,7 +95,9 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useCreateConsumerAccountMutation,
   useCreateProviderAccountMutation,
+  useCreateAgentAccountMutation,
   useVerifyEmailMutation,
   useResendEmailVerificationCodeMutation,
   useSaveAddressMutation,
+  useGetMyProfileQuery,
 } = authApi;

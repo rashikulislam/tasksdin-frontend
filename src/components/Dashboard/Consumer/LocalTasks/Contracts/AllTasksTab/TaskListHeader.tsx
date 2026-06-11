@@ -1,4 +1,5 @@
-// components/tasks/TaskListHeader.tsx
+"use client";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 
 interface TaskListHeaderProps {
@@ -6,16 +7,15 @@ interface TaskListHeaderProps {
 }
 
 export function TaskListHeader({ taskCount }: TaskListHeaderProps) {
+  const t = useTranslations("Dashboard.Consumer.PostedTasks");
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2 sm:gap-0">
       <div>
-        <h2 className="text-2xl font-bold">সকল টাস্ক</h2>
-        <p className="text-muted-foreground mt-1">
-          আপনার সকল পোস্ট করা টাস্ক দেখুন এবং পরিচালনা করুন
-        </p>
+        <h2 className="text-2xl font-bold">{t("title")}</h2>
+        <p className="text-muted-foreground mt-1">{t("description")}</p>
       </div>
       <Badge variant="outline" className="text-primary">
-        {taskCount} টাস্ক
+        {t("taskCount", { count: taskCount })}
       </Badge>
     </div>
   );

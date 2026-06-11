@@ -7,7 +7,7 @@ const NavLogo = () => {
   return (
     <div>
       <Link href={`/${locale}`}>
-        <h1 className="text-2xl font-bold">LOGO</h1>
+        <h1 className="text-2xl font-bold text-primary">TasksDin</h1>
       </Link>
     </div>
   );

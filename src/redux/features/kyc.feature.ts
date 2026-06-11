@@ -24,10 +24,13 @@ const kycApi = baseApi.injectEndpoints({
 
     // Starts a hosted Didit verification session; returns { session_url, ... }
     // — redirect the user to session_url to complete verification.
+    // `redirect_url` is the page Didit sends the browser back to after verification.
+    // Passing the current origin here makes local dev and production both work correctly.
     createDiditKycSession: builder.mutation({
-      query: () => ({
+      query: (body?: { redirect_url?: string }) => ({
         url: "/kyc/didit/session",
         method: "POST",
+        body: body ?? {},
       }),
       invalidatesTags: ["KYC"],
     }),

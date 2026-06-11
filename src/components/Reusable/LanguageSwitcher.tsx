@@ -1,35 +1,22 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
 import { Toggle } from "@/components/ui/toggle";
 import { Languages } from "lucide-react";
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [locale, setLocale] = useState<"en" | "bn">("en");
+  const locale = useLocale() as "en" | "bn";
 
-  // Detect current locale from URL
-  useEffect(() => {
-    const pathParts = pathname.split("/").filter(Boolean);
-    setLocale(pathParts[0] === "bn" ? "bn" : "en");
-  }, [pathname]);
-
-  // Toggle language and update URL
   const toggleLanguage = () => {
     const newLocale = locale === "en" ? "bn" : "en";
-    const pathParts = pathname.split("/").filter(Boolean);
-    if (pathParts[0] === locale) pathParts.shift();
-
-    const newPath = "/" + [newLocale, ...pathParts].join("/");
-    router.replace(newPath);
-    setLocale(newLocale);
+    const currentPath =
+      window.location.pathname + window.location.search;
+    window.location.href = `/api/set-locale?locale=${newLocale}&redirect=${encodeURIComponent(currentPath)}`;
   };
 
   return (
     <Toggle
-      pressed={locale === "en"}
+      pressed={locale === "bn"}
       onPressedChange={toggleLanguage}
       variant="outline"
       size="sm"

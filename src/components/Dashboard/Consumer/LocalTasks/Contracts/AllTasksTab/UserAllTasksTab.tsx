@@ -1,9 +1,12 @@
 "use client";
+import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { TaskListHeader } from "./TaskListHeader";
 import { TaskCard } from "./TaskCard";
 import { useGetParticularConsumerPostedTaskQuery } from "@/redux/features/NonSkilledConsumer.feature";
 import TaskFeedSkeleton from "@/components/Skeletons/TaskFeedSkeleton";
 import { ManageStatusState } from "@/components/Reusable/ManageStatusState";
+import { useSocketStore } from "@/lib/socketStore";
 
 export interface INonSkilledTask {
   id: string;
@@ -29,8 +32,20 @@ export interface INonSkilledTask {
 }
 
 export default function UserAllTasksTab() {
-  const { isLoading, data, isError } =
-    useGetParticularConsumerPostedTaskQuery(undefined);
+  const t = useTranslations("Dashboard.Consumer.PostedTasks");
+  const { isLoading, data, isError, refetch } =
+    useGetParticularConsumerPostedTaskQuery(undefined, {
+      pollingInterval: 15000,
+    });
+
+  // Refetch whenever the consumer receives a new socket notification
+  // (the backend emits one each time a provider submits a proposal).
+  const notifications = useSocketStore((s) => s.notifications);
+  useEffect(() => {
+    if (notifications.length > 0) {
+      refetch();
+    }
+  }, [notifications.length, refetch]);
 
   const tasks = data?.data || [];
 
@@ -42,14 +57,14 @@ export default function UserAllTasksTab() {
       ) : isError ? (
         <ManageStatusState
           type="error"
-          message="ডাটা লোড করতে সমস্যা হয়েছে"
-          description="দয়া করে পেজটি রিফ্রেশ করুন অথবা পরে আবার চেষ্টা করুন।"
+          message={t("errorState.message")}
+          description={t("errorState.description")}
         />
       ) : tasks.length === 0 ? (
         <ManageStatusState
           type="notFound"
-          message="কোনো টাস্ক নেই"
-          description="আপনার কোনো পোস্ট করা টাস্ক নেই"
+          message={t("emptyState.message")}
+          description={t("emptyState.description")}
         />
       ) : (
         <div className="grid gap-4">

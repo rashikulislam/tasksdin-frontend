@@ -126,7 +126,7 @@ const LocationManage = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md transition-all duration-200 font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 outline-none">
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded-md transition-all duration-200 font-medium text-muted-foreground dark:text-slate-200 hover:text-foreground hover:bg-muted/50 outline-none">
             <MapPin className="h-4 w-4 " />
             {getLoading || changeLoading ? (
               <span className="truncate">Loading...</span>

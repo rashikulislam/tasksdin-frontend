@@ -14,6 +14,8 @@ import MobileMenu from "../LocalTasks/navigation/MobileMenu";
 import NavLogo from "@/components/Shared/Navbar/NavLogo";
 import { NavigationLinks } from "../LocalTasks/navigation/NavigationLinks";
 import UserProfileMenu from "../../Common/UserProfileMenu";
+import { ThemeToggle } from "@/components/Reusable/ThemeToggle";
+import LanguageSwitcher from "@/components/Reusable/LanguageSwitcher";
 
 interface UserDashboardNavigationProps {
   onSectionChange?: (section: string) => void;
@@ -29,11 +31,11 @@ interface UserDashboardNavigationProps {
 const ConsumerHeader = ({
   onSectionChange,
   user = {
-    name: "রহিম আহমেদ",
-    email: "rahim@example.com",
+    name: "",
+    email: "",
     avatar: "",
-    activeContracts: 3,
-    unreadMessages: 5,
+    activeContracts: 0,
+    unreadMessages: 0,
   },
 }: UserDashboardNavigationProps) => {
   // ✅ Hydration fix
@@ -88,7 +90,8 @@ const ConsumerHeader = ({
             ))}
 
             <LocationManage />
-
+            <ThemeToggle />
+            <LanguageSwitcher />
             <NotificationBell />
             <UserProfileMenu
               menuItems={[

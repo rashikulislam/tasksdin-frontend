@@ -13,9 +13,11 @@ export interface KycRecord {
 }
 
 const useKycStatus = () => {
-  const { data, isLoading, error } = useGetKycStatusQuery(undefined);
+  const { data, isLoading, isFetching, error } = useGetKycStatusQuery(undefined);
 
-  if (isLoading) {
+  // Treat any in-flight fetch (initial load OR refetch after mutation) as loading,
+  // so the banner never renders with stale pre-submission data.
+  if (isLoading || isFetching) {
     return { loading: true, isVerified: false, kycState: null as KycState | null, kyc: null as KycRecord | null };
   }
 
@@ -25,14 +27,21 @@ const useKycStatus = () => {
 
   const isVerified: boolean = data?.data?.is_kyc_verified ?? false;
   const kyc: KycRecord | null = data?.data?.kyc ?? null;
+  const diditStatus: string | null = data?.data?.didit_status ?? null;
+
+  const DIDIT_PENDING_STATUSES = ["In Review", "In Progress", "Not Started"];
 
   let kycState: KycState;
   if (isVerified) {
     kycState = "APPROVED";
-  } else if (!kyc) {
-    kycState = "NOT_SUBMITTED";
-  } else {
+  } else if (kyc) {
     kycState = kyc.status;
+  } else if (diditStatus && DIDIT_PENDING_STATUSES.includes(diditStatus)) {
+    // Didit automated verification is in progress — treat as PENDING
+    // so the banner does not prompt the user to submit KYC again.
+    kycState = "PENDING";
+  } else {
+    kycState = "NOT_SUBMITTED";
   }
 
   return { loading: false, isVerified, kycState, kyc };

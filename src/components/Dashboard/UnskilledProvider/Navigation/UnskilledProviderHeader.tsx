@@ -10,14 +10,11 @@ import { FaTasks } from "react-icons/fa";
 import { NavigationLinks } from "../../Consumer/LocalTasks/navigation/NavigationLinks";
 import { useIsMobile } from "@/hooks/use-mobile";
 import MobileMenu from "../../Consumer/LocalTasks/navigation/MobileMenu";
+import NavLogo from "@/components/Shared/Navbar/NavLogo";
+import { ThemeToggle } from "@/components/Reusable/ThemeToggle";
+import LanguageSwitcher from "@/components/Reusable/LanguageSwitcher";
 
 const navigationItems = [
-  {
-    id: "dashboard",
-    label: "হোম",
-    icon: Home,
-    href: "/dashboard/general-provider",
-  },
   {
     id: "tasks",
     label: "কাজের তালিকা",
@@ -92,12 +89,14 @@ export default function UnskilledProviderHeader() {
       ) : (
         <div className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
           <div className="flex items-center justify-between p-4 container">
-            <h1 className="text-2xl font-semibold">Logo</h1>
+            <NavLogo />
 
             {navigationItems?.map((item) => (
               <NavigationLinks key={item?.id} item={item} />
             ))}
             <LocationManage />
+            <ThemeToggle />
+            <LanguageSwitcher />
             <NotificationBell />
             <UserProfileMenu menuItems={[]} />
           </div>

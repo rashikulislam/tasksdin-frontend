@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,7 +30,6 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import EditTaskModal from "./EditTaskModal";
 import { INonSkilledTask } from "./UserAllTasksTab";
 import moment from "moment";
 
@@ -47,8 +47,9 @@ const TaskStatus = {
 export function TaskCard({ task }: TaskCardProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const t = useTranslations("Dashboard.Consumer.PostedTasks");
 
-  moment.locale("bn"); // Bangla locale
+  moment.locale("bn");
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -58,7 +59,7 @@ export function TaskCard({ task }: TaskCardProps) {
             variant="outline"
             className="bg-success/10 text-success border-success/30"
           >
-            Pending
+            {t("status.pending")}
           </Badge>
         );
       case TaskStatus.ON_GOING:
@@ -67,7 +68,7 @@ export function TaskCard({ task }: TaskCardProps) {
             variant="outline"
             className="bg-primary/10 text-primary border-primary/30"
           >
-            চলমান
+            {t("status.onGoing")}
           </Badge>
         );
       case TaskStatus.COMPLETE:
@@ -76,7 +77,7 @@ export function TaskCard({ task }: TaskCardProps) {
             variant="outline"
             className="bg-muted/10 text-muted-foreground border-muted/30"
           >
-            সম্পন্ন
+            {t("status.complete")}
           </Badge>
         );
       case TaskStatus.DENY:
@@ -85,13 +86,13 @@ export function TaskCard({ task }: TaskCardProps) {
             variant="outline"
             className="bg-destructive/10 text-destructive border-destructive/30"
           >
-            বাতিল
+            {t("status.deny")}
           </Badge>
         );
       default:
         return (
           <Badge variant="outline" className="bg-gray-100 text-gray-700">
-            অজানা
+            {t("status.unknown")}
           </Badge>
         );
     }
@@ -118,14 +119,14 @@ export function TaskCard({ task }: TaskCardProps) {
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem onClick={() => setEditModalOpen(true)}>
                       <Pencil className="h-4 w-4 mr-2" />
-                      টাস্ক সম্পাদনা
+                      {t("taskMenu.edit")}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => setDeleteDialogOpen(true)}
                       className="text-destructive"
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
-                      টাস্ক মুছে ফেলুন
+                      {t("taskMenu.delete")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -142,7 +143,7 @@ export function TaskCard({ task }: TaskCardProps) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-3 bg-muted/30 rounded-lg">
             <div className="flex items-center gap-2">
               <div>
-                <p className="text-sm text-muted-foreground">মূল্য</p>
+                <p className="text-sm text-muted-foreground">{t("columns.price")}</p>
                 <p className="text-lg font-bold text-primary">
                   ৳{task?.budget}
                 </p>
@@ -151,7 +152,7 @@ export function TaskCard({ task }: TaskCardProps) {
             <div className="flex items-center gap-2">
               <FileText className="w-4 h-4 text-accent" />
               <div>
-                <p className="text-sm text-muted-foreground">প্রস্তাবনা</p>
+                <p className="text-sm text-muted-foreground">{t("columns.proposals")}</p>
                 <p className="text-sm font-bold text-accent">
                   {task?._count?.proposals}
                 </p>
@@ -160,9 +161,7 @@ export function TaskCard({ task }: TaskCardProps) {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
               <div>
-                <p className="text-sm text-muted-foreground">
-                  পোস্ট করা হয়েছে
-                </p>
+                <p className="text-sm text-muted-foreground">{t("columns.posted")}</p>
                 <p className="text-sm font-medium">
                   {moment(task.created_at).format("ll, A h:mm")}
                 </p>
@@ -171,7 +170,7 @@ export function TaskCard({ task }: TaskCardProps) {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
               <div>
-                <p className="text-sm text-muted-foreground">সময় শেষ হবে</p>
+                <p className="text-sm text-muted-foreground">{t("columns.deadline")}</p>
                 <p className="text-sm font-medium">
                   {moment(task.deadline).format("ll, A h:mm")}
                 </p>
@@ -180,7 +179,7 @@ export function TaskCard({ task }: TaskCardProps) {
             <div className="flex items-center gap-2">
               <Tag className="w-4 h-4 text-muted-foreground" />
               <div>
-                <p className="text-sm text-muted-foreground">সার্ভিসের ধরণ </p>
+                <p className="text-sm text-muted-foreground">{t("columns.serviceType")}</p>
                 <p className="text-sm font-medium">{task?.category?.name}</p>
               </div>
             </div>
@@ -192,13 +191,13 @@ export function TaskCard({ task }: TaskCardProps) {
             disabled={!task?._count?.proposals}
           >
             <Link
-              href={`/dashboard/consumer/local-tasks/contracts/proposals/${task?.id}`}
+              href={`/dashboard/consumer/local-tasks/posted/proposals/${task?.id}`}
               className="flex items-center w-full justify-center"
             >
               <FileText className="w-4 h-4 mr-2" />
               {task?._count?.proposals > 0
-                ? `${task?._count?.proposals} প্রস্তাবনা দেখুন`
-                : "কোন প্রস্তাবনা নেই"}
+                ? t("viewProposals", { count: task._count.proposals })
+                : t("noProposals")}
             </Link>
           </Button>
         </CardContent>
@@ -208,20 +207,20 @@ export function TaskCard({ task }: TaskCardProps) {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>টাস্ক মুছে ফেলুন</AlertDialogTitle>
+            <AlertDialogTitle>{t("deleteDialog.title")}</AlertDialogTitle>
             <AlertDialogDescription>
-              আপনি কি নিশ্চিত যে এই টাস্কটি মুছে ফেলতে চান? এই কাজটি
-              পূর্বাবস্থায় ফেরানো যাবে না।
+              {t("deleteDialog.description")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>বাতিল</AlertDialogCancel>
+            <AlertDialogCancel>{t("deleteDialog.cancel")}</AlertDialogCancel>
             <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              মুছে ফেলুন
+              {t("deleteDialog.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
     </div>
   );
 }

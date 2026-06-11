@@ -245,6 +245,7 @@
         "dashboard": "Dashboard",
         "profileOptions": {
           "profile": "Profile",
+          "payment": "Payment",
           "history": "Work History",
           "bank": "Bank",
           "withdraw": "Withdraw",
@@ -253,6 +254,62 @@
           "settings": "Settings",
           "logout": "Logout"
         }
+      }
+    },
+    "Consumer": {
+      "PostedTasks": {
+        "title": "All Tasks",
+        "description": "View and manage all your posted tasks",
+        "taskCount": "{count} tasks",
+        "status": {
+          "pending": "Pending",
+          "onGoing": "In Progress",
+          "complete": "Completed",
+          "deny": "Cancelled",
+          "unknown": "Unknown"
+        },
+        "columns": {
+          "price": "Price",
+          "proposals": "Proposals",
+          "posted": "Posted",
+          "deadline": "Deadline",
+          "serviceType": "Service Type"
+        },
+        "viewProposals": "{count} proposals — view",
+        "noProposals": "No proposals yet",
+        "taskMenu": {
+          "edit": "Edit Task",
+          "delete": "Delete Task"
+        },
+        "deleteDialog": {
+          "title": "Delete Task",
+          "description": "Are you sure you want to delete this task? This action cannot be undone.",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "emptyState": {
+          "message": "No tasks",
+          "description": "You don't have any posted tasks"
+        },
+        "errorState": {
+          "message": "Error loading data",
+          "description": "Please refresh the page or try again later."
+        }
+      },
+      "Proposals": {
+        "backButton": "Back",
+        "proposalCount": "{count} proposals",
+        "successRate": "Success Rate",
+        "jobCount": "Jobs",
+        "rating": "Rating",
+        "proposal": "Proposal",
+        "proposedPrice": "Proposed price",
+        "hire": "Hire",
+        "message": "Message",
+        "noProposals": "No proposals",
+        "noProposalsDesc": "No proposals have been submitted yet.",
+        "errorMsg": "Error loading proposals",
+        "errorDesc": "Please refresh or try again later."
       }
     }
   }

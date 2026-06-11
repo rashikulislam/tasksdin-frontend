@@ -1,18 +1,19 @@
 "use client";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  useCreateLocalTaskMutation,
-  useGetPostTaskCategoryQuery,
-} from "@/redux/features/NonSkilledConsumer.feature";
+import { useGetPostTaskCategoryQuery } from "@/redux/features/NonSkilledConsumer.feature";
+import { useFindLocationQuery } from "@/redux/features/location.feature";
 import { useForm } from "react-hook-form";
 import CustomInput from "@/components/Reusable/CustomInput";
 import { CustomDropdown } from "@/components/Reusable/CustomDropdown";
 import CustomTextArea from "@/components/Reusable/CustomTextArea";
 import { CustomDateAndTimeSelector } from "@/components/Reusable/CustomDateAndTimeSelector";
 import UrgencyLevel from "@/components/Reusable/UrgencyLevel";
-import { useAlert } from "@/components/Reusable/AlertModal";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "@/i18n/routing";
+import { TUserLocation } from "@/interfaces/location";
+import { MapPin, RefreshCw } from "lucide-react";
+import GoogleMapModal from "@/components/Modal/GoogleMapModal";
 
 interface Category {
   id: string;
@@ -31,59 +32,65 @@ export interface TaskData {
   deadline: string;
   urgency_level: string;
   location_info: string;
+  latitude?: number;
+  longitude?: number;
   type?: string;
   createdAt?: string;
   serviceData?: string;
 }
 export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
-  const [createTask, { isLoading: createLoading }] =
-    useCreateLocalTaskMutation();
+  const router = useRouter();
+
   const { data: response, isLoading } = useGetPostTaskCategoryQuery(undefined);
   const categories = response?.data || [];
-  const { showAlert } = useAlert();
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const { data: locationData } = useFindLocationQuery(undefined);
+  const locations = (locationData?.data as TUserLocation[]) || [];
+  const defaultLocation = locations.find((l) => l.is_default === true);
+
+  // Live Location state (GPS / map-picker based)
+  const [liveLocationLabel, setLiveLocationLabel] = useState<string>("");
+  const [liveCoords, setLiveCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
   const {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<TaskData>({ defaultValues: { category_id: "", task_title: "" } });
   const topRef = useRef<HTMLDivElement | null>(null);
 
+  // Pre-populate location_info and Live Location from the header's active location on mount
   useEffect(() => {
-    if (errorMessage) {
-      topRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+    if (defaultLocation?.label) {
+      setValue("location_info", defaultLocation.label);
+      setLiveLocationLabel(defaultLocation.label);
+      setLiveCoords({
+        lat: defaultLocation.latitude,
+        lng: defaultLocation.longitude,
       });
     }
-  }, [errorMessage]);
+  }, [defaultLocation?.label, defaultLocation?.latitude, defaultLocation?.longitude, setValue]);
 
   const options = categories.map((cat: Category) => {
     return { label: cat.name, value: cat.id };
   });
 
-  const onSubmit = async (payload: TaskData) => {
-    setErrorMessage("");
-    try {
-      payload.budget = Number(payload.budget);
-      const result = await createTask(payload).unwrap();
-
-      if (result?.success) {
-        onClose();
-        return showAlert({
-          title: result?.message,
-          type: "success",
-          description: "",
-        });
-      } else {
-        setErrorMessage(result?.message);
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setErrorMessage(error?.data?.message);
+  const onSubmit = (payload: TaskData) => {
+    payload.budget = Number(payload.budget);
+    // Use live location coordinates for 1 km radius enforcement
+    if (liveCoords) {
+      payload.latitude = liveCoords.lat;
+      payload.longitude = liveCoords.lng;
+    } else if (defaultLocation) {
+      payload.latitude = defaultLocation.latitude;
+      payload.longitude = defaultLocation.longitude;
     }
+    sessionStorage.setItem("pendingTaskData", JSON.stringify(payload));
+    onClose();
+    router.push("/dashboard/consumer/local-tasks/post-payment");
   };
 
   return (
@@ -92,11 +99,6 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
       ref={topRef}
     >
       <CardHeader className={isMobile ? "pb-4" : "pt-0"}>
-        {errorMessage && (
-          <CardTitle className="text-red-600 text-center">
-            {errorMessage}
-          </CardTitle>
-        )}
         <CardTitle className={isMobile ? "text-lg" : ""}>
           আপনার কাজের বিবরণ দিন
         </CardTitle>
@@ -105,7 +107,7 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <CustomInput
             name="task_title"
-            placeholder="যেমন: আমার বাসা পরিষ্কার করার জন্য একজন প্রয়োজন"
+            placeholder="যেমন: আমার বাসা পরিষ্কার করার জন্য একজন প্রয়োজন"
             register={register}
             type="text"
             error={errors.task_title!}
@@ -165,22 +167,70 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
             required={true}
           />
 
-          <CustomTextArea
-            label="লোকেশনের বিস্তারিত"
-            name="location_info"
-            placeholder="রোড, ফ্ল্যাট/বাড়ি নম্বর, ফ্লোর, এলাকা"
-            register={register}
-            error={errors.location_info}
-            errorMessage="দয়া করে লোকেশনের বিস্তারিত লিখুন"
-            required
-            row={2}
-          />
+          {/* Location — manual text entry for address details */}
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">
+                লোকেশন <span className="text-red-500">*</span>
+              </span>
+              {defaultLocation && (
+                <button
+                  type="button"
+                  onClick={() => setValue("location_info", defaultLocation.label ?? "")}
+                  className="flex items-center gap-1 text-xs text-primary hover:underline"
+                  title="হেডারের বর্তমান লোকেশন ব্যবহার করুন"
+                >
+                  <RefreshCw className="h-3 w-3" />
+                  বর্তমান লোকেশন ব্যবহার করুন
+                </button>
+              )}
+            </div>
+            <CustomTextArea
+              label=""
+              name="location_info"
+              placeholder="রোড, ফ্ল্যাট/বাড়ি নম্বর, ফ্লোর, এলাকা"
+              register={register}
+              error={errors.location_info}
+              errorMessage="দয়া করে লোকেশনের বিস্তারিত লিখুন"
+              required
+              row={2}
+            />
+          </div>
+
+          {/* Live Location — GPS coordinates used for 1 km radius matching */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-medium">
+              লাইভ লোকেশন{" "}
+              <span className="text-red-500">*</span>
+              <span className="text-xs font-normal text-muted-foreground ml-1">
+                (নিকটবর্তী প্রোভাইডার খোঁজার জন্য)
+              </span>
+            </span>
+            <div className="flex items-center gap-2 rounded-md border px-3 py-2.5 bg-muted/10">
+              <MapPin className="h-4 w-4 text-primary shrink-0" />
+              <span className="flex-1 text-sm text-muted-foreground truncate">
+                {liveLocationLabel || "লোকেশন নির্বাচন করা হয়নি"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsMapOpen(true)}
+                className="shrink-0 rounded p-1.5 hover:bg-muted text-primary border border-primary/30 hover:border-primary transition-colors"
+                title="ম্যাপ থেকে লাইভ লোকেশন নির্বাচন করুন"
+              >
+                <MapPin className="h-4 w-4" />
+              </button>
+            </div>
+            {!liveCoords && (
+              <p className="text-xs text-amber-600">
+                সঠিক প্রোভাইডার খুঁজতে লাইভ লোকেশন নির্বাচন করুন।
+              </p>
+            )}
+          </div>
 
           <UrgencyLevel isMobile={isMobile} control={control} />
 
           <div className="space-y-4">
             <Button
-              disabled={createLoading}
               type="submit"
               className={`w-full ${isMobile ? "btn-mobile-primary" : ""}`}
               size="lg"
@@ -188,11 +238,28 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
               কাজ পোস্ট করুন
             </Button>
             <p className="text-center text-muted-foreground text-sm">
-              পেমেন্ট নিশ্চিত হওয়ার পর আপনার কাজটি লাইভ হবে
+              পেমেন্ট নিশ্চিত হওয়ার পর আপনার কাজটি লাইভ হবে
             </p>
           </div>
         </form>
       </CardContent>
+
+      {/* GoogleMapModal for Live Location selection */}
+      {isMapOpen && (
+        <GoogleMapModal
+          isOpen={isMapOpen}
+          isLoading={false}
+          onClose={() => setIsMapOpen(false)}
+          onConfirm={(address, position) => {
+            const label = address.houseNo
+              ? `${address.houseNo}, ${address.formattedAddress}`
+              : address.formattedAddress;
+            setLiveLocationLabel(label);
+            setLiveCoords({ lat: position.lat, lng: position.lng });
+            setIsMapOpen(false);
+          }}
+        />
+      )}
     </Card>
   );
 };

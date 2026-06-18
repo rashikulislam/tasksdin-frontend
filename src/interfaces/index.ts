@@ -170,7 +170,7 @@ export type TProviderRegPageOne = {
 export type TConsumerRegisterData = {
   full_name: string;
   email: string;
-  phone_number?: string;
+  phone_number: string;
   password: string;
   accept_terms: true;
 };

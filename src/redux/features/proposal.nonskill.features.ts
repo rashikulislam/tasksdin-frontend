@@ -73,6 +73,14 @@ const proposalNonSkill = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    // GET pending proposal from a specific provider (used in consumer chatbox)
+    getPendingProposalByProvider: builder.query({
+      query: (providerUserId: string) => ({
+        url: `/proposal-non-skill/pending-by-provider/${providerUserId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -85,4 +93,5 @@ export const {
   useGetConsumerContractsQuery,
   useGetConsumerSingleContractQuery,
   useGetProviderSingleContractQuery,
+  useGetPendingProposalByProviderQuery,
 } = proposalNonSkill;

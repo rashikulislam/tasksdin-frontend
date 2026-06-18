@@ -114,8 +114,8 @@ const UnskilledTaskFeed = ({ tasks }: UnskilledTaskFeedProps) => {
                           ) : (
                             <>{`${calculateDistance(
                               {
-                                lat1: task?.latitude,
-                                lng1: task?.longitude,
+                                lat1: task?.consumer?.user?.locations[0]?.latitude,
+                                lng1: task?.consumer?.user?.locations[0]?.longitude,
                               },
                               {
                                 lat2: filterDefault?.latitude as number,

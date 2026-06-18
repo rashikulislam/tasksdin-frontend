@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Camera, UploadCloud, CheckCircle, Loader2 } from "lucide-react";
+import { Camera, UploadCloud, CheckCircle, Loader2, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,7 +13,7 @@ import { useSubmitKycMutation, useGetKycStatusQuery } from "@/redux/features/kyc
 import { LiveSelfieCapture } from "./LiveSelfieCapture";
 
 type DocType = "NID" | "PASSPORT";
-type FileField = "nid_front" | "nid_back" | "passport_img" | "live_image";
+type FileField = "nid_front" | "nid_back" | "passport_img" | "live_image" | "profile_img";
 
 interface KycSubmitFormProps {
   dashboardPath: string;
@@ -134,6 +134,10 @@ const KycSubmitForm = ({ dashboardPath }: KycSubmitFormProps) => {
       const formData = new FormData();
       formData.append("doc_type", docType);
 
+      if (files.profile_img) {
+        formData.append("profile_img", files.profile_img);
+      }
+
       if (docType === "NID") {
         formData.append("nid_number", nidNumber.trim());
         formData.append("nid_front", files.nid_front!);
@@ -152,11 +156,14 @@ const KycSubmitForm = ({ dashboardPath }: KycSubmitFormProps) => {
       });
       router.push(dashboardPath);
     } catch (error: unknown) {
-      const err = error as { data?: { message?: string } };
+      const err = error as { status?: string | number; data?: { message?: string }; error?: string };
+      const isNetworkError = err?.status === "FETCH_ERROR" || err?.status === "PARSING_ERROR";
+      const description = err?.data?.message
+        ?? (isNetworkError ? "Cannot reach the server. Please make sure the backend is running." : "Please check your documents and try again.");
       showToast({
         type: "error",
         title: "Submission failed",
-        description: err?.data?.message ?? "Please check your documents and try again.",
+        description,
       });
     }
   };
@@ -227,6 +234,24 @@ const KycSubmitForm = ({ dashboardPath }: KycSubmitFormProps) => {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Profile photo */}
+          <div className="flex flex-col gap-1.5">
+            <Label className="text-sm font-medium flex items-center gap-1.5">
+              <UserCircle className="h-4 w-4" />
+              Profile Photo
+              <span className="text-muted-foreground font-normal">(optional)</span>
+            </Label>
+            <p className="text-xs text-muted-foreground -mt-1">
+              Upload a clear face photo. This will be set as your profile picture upon KYC approval.
+            </p>
+            <FileUploadBox
+              label="Profile Photo"
+              field="profile_img"
+              preview={previews.profile_img ?? null}
+              onChange={handleFileChange}
+            />
           </div>
 
           {/* NID fields */}

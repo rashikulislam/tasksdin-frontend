@@ -8,7 +8,6 @@ import { IProposal } from "@/interfaces/proposal";
 import moment from "moment";
 import { useAlert } from "@/components/Reusable/AlertModal";
 import { useAcceptCompleteTaskConfirmationMutation } from "@/redux/features/contract.feature";
-import { calculateDistance } from "@/components/Dashboard/Common/utils/calculateDistance";
 moment.locale("bn");
 
 export default function ContractInfoCard({
@@ -102,16 +101,7 @@ export default function ContractInfoCard({
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-muted-foreground" />
               <span className="truncate text-blue-600 font-semibold">
-                {`${calculateDistance(
-                  {
-                    lat1: contract?.task?.latitude,
-                    lng1: contract?.task?.longitude,
-                  },
-                  {
-                    lat2: contract?.latitude as number,
-                    lng2: contract?.longitude as number,
-                  },
-                ).toFixed(1)} km`}
+                {contract?.task?.location_info || "অবস্থান অজানা"}
               </span>
             </div>
 

@@ -23,7 +23,7 @@ const roles: {
 }[] = [
   {
     id: "provider",
-    title: "সার্ভিস প্রোভায়ার হিসেবে",
+    title: "সেবা দাতা হিসেবে",
     description: "কাজ করে আয় করুন এবং আপনার দক্ষতা কাজে লাগান",
     icon: Users,
     iconBg: "bg-gradient-accent",
@@ -38,7 +38,7 @@ const roles: {
   },
   {
     id: "task-giver",
-    title: "কাজ দাতা হিসেবে",
+    title: "সেবা গ্রহীতা হিসেবে",
     description: "আপনার কাজ পোস্ট করুন এবং বিশ্বস্ত লোক নিয়োগ দিন",
     icon: MapPin,
     iconBg: "bg-gradient-primary",

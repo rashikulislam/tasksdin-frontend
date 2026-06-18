@@ -2,10 +2,10 @@
 export const modifyRegistrationInfo = (info: Record<string, any>) => {
   const { password, ...rests } = info;
 
-  const data = {
-    password,
-    data: rests,
-  };
+  // Strip empty strings so optional backend fields receive undefined, not ""
+  const cleanedData = Object.fromEntries(
+    Object.entries(rests).filter(([, v]) => v !== "")
+  );
 
-  return data;
+  return { password, data: cleanedData };
 };

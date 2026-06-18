@@ -59,11 +59,13 @@ const AgentPartnerRegForm = ({ setPages, pages, setEmail }: TSetPage) => {
         showToast({ type: "error", description: result?.message });
       }
     } catch (error: unknown) {
-      const err = error as { data?: { message?: string } };
-      showToast({
-        type: "error",
-        description: err?.data?.message ?? "Registration failed. Please try again.",
-      });
+      const err = error as { status?: string | number; data?: { message?: string } };
+      const description =
+        err?.data?.message ??
+        (err?.status === "FETCH_ERROR"
+          ? "সার্ভারের সাথে সংযোগ হচ্ছে না। ব্যাকএন্ড সার্ভার চালু আছে কিনা দেখুন।"
+          : "রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
+      showToast({ type: "error", description });
     }
   };
 
@@ -114,21 +116,29 @@ const AgentPartnerRegForm = ({ setPages, pages, setEmail }: TSetPage) => {
               <CustomInput
                 name="phone_number"
                 type="text"
-                label={`${t("phone")} (optional)`}
+                label={t("phone")}
                 placeholder={t("phonePlaceholder")}
                 register={register}
+                required
                 error={errors.phone_number!}
               />
 
-              <CustomInput
-                name="password"
-                type="password"
-                label={t("password")}
-                placeholder={t("password")}
-                register={register}
-                required
-                error={errors.password!}
-              />
+              <div>
+                <CustomInput
+                  name="password"
+                  type="password"
+                  label={t("password")}
+                  placeholder={t("password")}
+                  register={register}
+                  required
+                  error={errors.password!}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  {locale === "bn"
+                    ? "পাসওয়ার্ড অন্তত ৮ অক্ষরের এবং সর্বোচ্চ ১৫ অক্ষরের হতে হবে"
+                    : "Password must be 8–15 characters"}
+                </p>
+              </div>
 
               {/* Terms & Conditions */}
               <div className="flex items-start gap-2 pt-1">

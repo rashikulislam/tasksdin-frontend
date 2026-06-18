@@ -191,7 +191,7 @@
         "name": "পূর্ণ নাম",
         "namePlaceholder": "আপনার পূর্ণ নাম লিখুন",
         "email": "ইমেল",
-        "phone": "ফোন নম্বর",
+        "phone": "NID নিবন্ধিত ফোন নম্বর",
         "phonePlaceholder": "+8801XXXXXXXXX",
         "nid": "জাতীয় পরিচয়পত্র / পাসপোর্ট",
         "nidPlaceholder": "আপনার NID বা পাসপোর্ট নম্বর লিখুন",

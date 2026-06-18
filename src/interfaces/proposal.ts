@@ -74,6 +74,7 @@ export interface ITaskWithConsumer {
   task_title: string;
   deadline: string;
   description: string;
+  location_info?: string;
   consumer: IConsumer;
   latitude: number;
   longitude: number;

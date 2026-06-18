@@ -121,16 +121,16 @@ const UnskilledContractDetails = ({
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-muted-foreground" />
                     <span className="truncate text-blue-600 font-semibold">
-                      {`${calculateDistance(
-                        {
-                          lat1: contract?.task?.latitude,
-                          lng1: contract?.task?.longitude,
-                        },
-                        {
-                          lat2: contract?.latitude as number,
-                          lng2: contract?.longitude as number,
-                        },
-                      ).toFixed(1)} km`}
+                      {(() => {
+                        const taskLat = contract?.task?.consumer?.user?.locations?.[0]?.latitude;
+                        const taskLng = contract?.task?.consumer?.user?.locations?.[0]?.longitude;
+                        const provLat = contract?.latitude;
+                        const provLng = contract?.longitude;
+                        if (!taskLat || !taskLng || !provLat || !provLng) {
+                          return contract?.task?.location_info || "অবস্থান অজানা";
+                        }
+                        return `${calculateDistance({ lat1: taskLat, lng1: taskLng }, { lat2: provLat, lng2: provLng }).toFixed(1)} km`;
+                      })()}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-500">
@@ -291,7 +291,7 @@ const UnskilledContractDetails = ({
                   </Link>
 
                   <Link
-                    href={`https://www.google.com/maps/search/?api=1&query=${contract?.task?.latitude},${contract?.task?.longitude}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${contract?.task?.consumer?.user?.locations?.[0]?.latitude ?? contract?.task?.latitude},${contract?.task?.consumer?.user?.locations?.[0]?.longitude ?? contract?.task?.longitude}`}
                     className="w-full"
                     target="_blank"
                   >

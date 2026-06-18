@@ -14,6 +14,7 @@ import { useRouter } from "@/i18n/routing";
 import { TUserLocation } from "@/interfaces/location";
 import { MapPin, RefreshCw } from "lucide-react";
 import GoogleMapModal from "@/components/Modal/GoogleMapModal";
+import { useCreateNewLocationMutation } from "@/redux/features/location.feature";
 
 interface Category {
   id: string;
@@ -47,6 +48,8 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
   const { data: locationData } = useFindLocationQuery(undefined);
   const locations = (locationData?.data as TUserLocation[]) || [];
   const defaultLocation = locations.find((l) => l.is_default === true);
+
+  const [createNewLocation] = useCreateNewLocationMutation();
 
   // Live Location state (GPS / map-picker based)
   const [liveLocationLabel, setLiveLocationLabel] = useState<string>("");
@@ -257,6 +260,13 @@ export const TaskForm = ({ isMobile, onClose }: TaskFormProps) => {
             setLiveLocationLabel(label);
             setLiveCoords({ lat: position.lat, lng: position.lng });
             setIsMapOpen(false);
+            // Save to DB so the header location updates and future tasks use correct coords
+            createNewLocation({
+              location: {
+                address: { formattedAddress: label },
+                position: { lat: position.lat, lng: position.lng },
+              },
+            });
           }}
         />
       )}

@@ -36,6 +36,7 @@ export interface Consumer {
   email: string;
   created_at: string;
   profile_img: string;
+  _count?: { tasks: number };
   user: {
     locations: TUserLocation[];
   };

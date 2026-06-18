@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MapPin, Star, Phone, Mail, Clock, FileText } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, FileText } from "lucide-react";
 import { useGetSingleTaskQuery } from "@/redux/features/NonSkilledConsumer.feature";
 import { ITask } from "@/interfaces/task";
 import moment from "moment";
@@ -186,12 +186,8 @@ const UnskilledTaskDetails = ({ taskId }: { taskId: string }) => {
                           {task?.consumer?.full_name}
                         </h3>
                         <div className="flex items-center gap-2 mt-1">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            <span className="font-medium">4</span>
-                          </div>
                           <span className="text-sm text-muted-foreground">
-                            • 20 টি কাজ পোস্ট করেছেন
+                            {task?.consumer?._count?.tasks ?? 0} টি কাজ পোস্ট করেছেন
                           </span>
                         </div>
                         <p className="text-sm text-muted-foreground mt-1">
@@ -203,13 +199,6 @@ const UnskilledTaskDetails = ({ taskId }: { taskId: string }) => {
                       </div>
                     </div>
 
-                    {/* Bio */}
-                    <div>
-                      <h4 className="font-semibold mb-2">সম্পর্কে</h4>
-                      <p className="text-muted-foreground">
-                        Here is bio comming
-                      </p>
-                    </div>
 
                     {/* Location */}
                     {/* <div>

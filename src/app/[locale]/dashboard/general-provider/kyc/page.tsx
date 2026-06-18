@@ -13,7 +13,7 @@ const ProviderKycPage = () => {
         </p>
       </div>
 
-      <Tabs defaultValue="didit">
+      <Tabs defaultValue="manual">
         <TabsList className="w-full">
           <TabsTrigger value="didit" className="flex-1 gap-1.5">
             <Zap className="h-4 w-4" />

@@ -67,4 +67,5 @@ export interface ITask {
   category: Category;
   consumer: Consumer;
   applied?: boolean;
+  distance?: number; // meters, calculated by backend
 }

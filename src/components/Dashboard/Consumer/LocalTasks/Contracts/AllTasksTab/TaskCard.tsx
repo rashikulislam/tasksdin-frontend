@@ -91,7 +91,7 @@ export function TaskCard({ task }: TaskCardProps) {
         );
       default:
         return (
-          <Badge variant="outline" className="bg-gray-100 text-gray-700">
+          <Badge variant="outline" className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
             {t("status.unknown")}
           </Badge>
         );
@@ -186,7 +186,7 @@ export function TaskCard({ task }: TaskCardProps) {
           </div>
 
           <Button
-            className="w-full disabled:bg-gray-700 disabled:text-white"
+            className="w-full disabled:bg-muted disabled:text-muted-foreground"
             variant={task?._count?.proposals > 0 ? "default" : "outline"}
             disabled={!task?._count?.proposals}
           >

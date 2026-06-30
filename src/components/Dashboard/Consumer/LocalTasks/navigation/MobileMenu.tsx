@@ -64,7 +64,7 @@ const MobileMenu = ({
   return (
     <>
       {/* Top bar */}
-      <header className="fixed top-0 left-0 right-0 z-[999] bg-white backdrop-blur-md border-b border-border flex items-center justify-between h-16 px-4">
+      <header className="fixed top-0 left-0 right-0 z-[999] bg-white dark:bg-card backdrop-blur-md border-b border-border flex items-center justify-between h-16 px-4">
         <h1 className="text-lg font-bold">LOGO</h1>
         <LocationManage />
         <div className="flex items-center gap-2">

@@ -38,7 +38,7 @@ export default function RequestCard({ request }: RequestCardProps) {
   const router = useRouter();
 
   return (
-    <Card className="group relative overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+    <Card className="group relative overflow-hidden rounded-2xl border bg-white dark:bg-gray-900 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300">
       {/* Top Accent Bar */}
       <div className="h-1 w-full bg-gradient-to-r from-green-500 to-emerald-400" />
 
@@ -58,8 +58,8 @@ export default function RequestCard({ request }: RequestCardProps) {
             </p>
           </div>
 
-          <div className="text-right bg-green-50 px-4 py-2 rounded-xl">
-            <p className="text-xl font-bold text-green-700">
+          <div className="text-right bg-green-50 dark:bg-green-950 px-4 py-2 rounded-xl">
+            <p className="text-xl font-bold text-green-700 dark:text-green-400">
               ৳{request.totalBill?.toLocaleString()}
             </p>
             <p className="text-xs text-muted-foreground">মোট বিল</p>
@@ -69,15 +69,15 @@ export default function RequestCard({ request }: RequestCardProps) {
         {/* Info Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mb-5">
           <div className="flex items-center gap-3">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <Users className="w-4 h-4 text-gray-600" />
+            <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full">
+              <Users className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             </div>
             <span>{request.people} জন সদস্য</span>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <ChefHat className="w-4 h-4 text-gray-600" />
+            <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full">
+              <ChefHat className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             </div>
             <span>
               {request.timesPerDay} বেলা রান্না (
@@ -86,8 +86,8 @@ export default function RequestCard({ request }: RequestCardProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <Calendar className="w-4 h-4 text-gray-600" />
+            <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full">
+              <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             </div>
             <span>
               শুরু: {new Date(request.startingDate).toLocaleDateString("bn-BD")}
@@ -95,8 +95,8 @@ export default function RequestCard({ request }: RequestCardProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <Home className="w-4 h-4 text-gray-600" />
+            <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full">
+              <Home className="w-4 h-4 text-gray-600 dark:text-gray-300" />
             </div>
             <span>পেমেন্ট: {request.paymentDate} তারিখ</span>
           </div>
@@ -141,7 +141,7 @@ export default function RequestCard({ request }: RequestCardProps) {
 
         {/* Trial */}
         {request.freeTrailDate && (
-          <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 text-sm mb-4">
+          <div className="bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-xl p-3 text-sm mb-4">
             🧪 ট্রায়াল:{" "}
             {new Date(request.freeTrailDate).toLocaleDateString("bn-BD")} •{" "}
             {request.trailTime}

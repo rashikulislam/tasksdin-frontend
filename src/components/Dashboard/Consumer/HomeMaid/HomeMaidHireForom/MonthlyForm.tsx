@@ -154,7 +154,7 @@ const MonthlyForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-white rounded-xl shadow border border-gray-200 p-5">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-200 dark:border-gray-700 p-5">
           <h1 className="text-xl font-bold">রান্না বিষয়ক তথ্য</h1>
 
           <div className=" grid grid-cols-1 gap-5 mt-3">
@@ -224,7 +224,7 @@ const MonthlyForm = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow border flex flex-col gap-3 border-gray-200 p-5  mt-5">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow border flex flex-col gap-3 border-gray-200 dark:border-gray-700 p-5  mt-5">
           <h1 className="text-xl font-bold">অতিরিক্ত সেবা</h1>
 
           <div>
@@ -236,7 +236,7 @@ const MonthlyForm = () => {
             />
 
             {clothesWashing && (
-              <div className="border border-gray-200 shadow px-8 py-2 rounded-md max-w-sm mt-2">
+              <div className="border border-gray-200 dark:border-gray-700 shadow px-8 py-2 rounded-md max-w-sm mt-2">
                 <div>
                   <CustomSelect
                     control={control}
@@ -264,7 +264,7 @@ const MonthlyForm = () => {
             />
 
             {toiletCleaning && (
-              <div className="border border-gray-200 shadow px-8 py-2 rounded-md max-w-sm mt-2">
+              <div className="border border-gray-200 dark:border-gray-700 shadow px-8 py-2 rounded-md max-w-sm mt-2">
                 <div>
                   <CustomSelect
                     control={control}
@@ -292,7 +292,7 @@ const MonthlyForm = () => {
             />
 
             {childCare && (
-              <div className="border border-gray-200 shadow px-2 py-2 rounded-md max-w-sm mt-2 ">
+              <div className="border border-gray-200 dark:border-gray-700 shadow px-2 py-2 rounded-md max-w-sm mt-2 ">
                 <div className="grid grid-cols-2 gap-2">
                   <CustomDropdown
                     control={control}
@@ -319,7 +319,7 @@ const MonthlyForm = () => {
         </div>
 
         {/* <FinalDetails /> */}
-        <div className="bg-white rounded-xl shadow border  border-gray-200 p-5  mt-5">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-200 dark:border-gray-700 p-5  mt-5">
           <h1 className="text-xl font-bold">অন্যান্য তথ্য</h1>
           <div className="pt-3 flex flex-col gap-3">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -429,7 +429,7 @@ const MonthlyForm = () => {
                       onClick={() => setTrialTimeSlot(value as TFreeTrailTime)}
                       className={`
                 flex items-center gap-2 px-8 py-2 border rounded-lg cursor-pointer transition
-                ${isActive ? "bg-primary text-white border-primary" : "bg-white text-gray-700 hover:bg-gray-100"}
+                ${isActive ? "bg-primary text-white border-primary" : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"}
               `}
                     >
                       <Icon size={15} />

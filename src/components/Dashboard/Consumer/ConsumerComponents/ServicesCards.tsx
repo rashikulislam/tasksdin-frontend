@@ -16,7 +16,7 @@ export const services: ServiceItem[] = [
     name: "লোকাল হেল্পার",
     description: "কাছাকাছি বিশ্বস্ত লোকাল সহায়তা",
     image:
-      "https://i.ibb.co.com/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
+      "https://i.ibb.co/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
     offerPercent: 25,
     offerColor: "bg-blue-500",
     href: "consumer/local-tasks",
@@ -26,7 +26,7 @@ export const services: ServiceItem[] = [
     name: "কাজের বুয়া",
     description: "ঘরের কাজের জন্য বুয়া",
     image:
-      "https://i.ibb.co.com/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
+      "https://i.ibb.co/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
     offerPercent: 20,
     offerColor: "bg-red-500",
     href: "consumer/maid-service",
@@ -37,7 +37,7 @@ export const services: ServiceItem[] = [
     name: "বাসা ভাড়া",
     description: "সহজে কাছাকাছি বাসা ভাড়া",
     image:
-      "https://i.ibb.co.com/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
+      "https://i.ibb.co/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
     offerPercent: 10,
     offerColor: "bg-yellow-500",
     href: "consumer/house-rental",
@@ -47,7 +47,7 @@ export const services: ServiceItem[] = [
     name: "লোকাল ফ্রিল্যান্সার",
     description: "লোকাল ডিজিটাল কাজের সমাধান",
     image:
-      "https://i.ibb.co.com/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
+      "https://i.ibb.co/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png",
     offerPercent: 15,
     offerColor: "bg-green-500",
     href: "local-freelancer",
@@ -66,7 +66,7 @@ const ServicesCards = () => {
             <div className="relative w-full h-24 mx-auto mb-4">
               <Image
                 src={
-                  "https://i.ibb.co.com/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png"
+                  "https://i.ibb.co/W4zgG8zz/Gemini-Generated-Image-m5y1ujm5y1ujm5y1.png"
                 }
                 alt={service.name}
                 height={100}
@@ -79,7 +79,7 @@ const ServicesCards = () => {
             <h2 className="text-lg font-semibold mb-2 px-1">{service.name}</h2>
 
             {/* Description */}
-            <p className="text-sm px-1 text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-sm px-1 text-gray-600 dark:text-gray-300 leading-relaxed">
               {service.description}
             </p>
 

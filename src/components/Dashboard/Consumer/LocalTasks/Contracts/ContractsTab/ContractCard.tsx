@@ -30,7 +30,7 @@ export function ContractCard({ contract }: ContractCardProps) {
   moment.locale("bn"); // Set Bangla locale
   console.log(contract);
   return (
-    <Card className="w-full border border-gray-200 rounded-2xl overflow-hidden shadow transition-shadow duration-300">
+    <Card className="w-full border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden shadow transition-shadow duration-300">
       {/* Header */}
       <CardHeader className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0 pb-3">
         <div className="">
@@ -70,7 +70,7 @@ export function ContractCard({ contract }: ContractCardProps) {
             </Avatar>
             <div className="flex-1 flex flex-col sm:flex-row sm:justify-between sm:items-center w-full">
               <div>
-                <p className="font-semibold text-base sm:text-lg text-gray-600">
+                <p className="font-semibold text-base sm:text-lg text-gray-600 dark:text-gray-300">
                   {contract?.provider?.full_name}
                 </p>
                 <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground flex-wrap">
@@ -113,7 +113,7 @@ export function ContractCard({ contract }: ContractCardProps) {
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <Clock className="w-4 h-4" /> পোস্ট করা হয়েছে
                   </p>
-                  <p className="text-sm sm:text-base font-medium text-gray-400">
+                  <p className="text-sm sm:text-base font-medium text-gray-400 dark:text-gray-500">
                     {contract?.task?.created_at
                       ? moment(contract.task.created_at).format("ll, A h:mm")
                       : "N/A"}
@@ -124,7 +124,7 @@ export function ContractCard({ contract }: ContractCardProps) {
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <MdStart className="w-4 h-4" /> কাজ শুরু হয়েছে
                   </p>
-                  <p className="text-sm sm:text-base font-medium text-gray-400">
+                  <p className="text-sm sm:text-base font-medium text-gray-400 dark:text-gray-500">
                     {contract?.created_at
                       ? moment(contract.task.created_at).format("ll, A h:mm")
                       : "N/A"}
@@ -135,7 +135,7 @@ export function ContractCard({ contract }: ContractCardProps) {
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <MdPinEnd className="w-4 h-4" /> শেষ সময়
                   </p>
-                  <p className="text-sm sm:text-base font-medium text-gray-400">
+                  <p className="text-sm sm:text-base font-medium text-gray-400 dark:text-gray-500">
                     {contract?.task?.deadline
                       ? moment(contract.task.deadline).format("ll, A h:mm")
                       : "N/A"}

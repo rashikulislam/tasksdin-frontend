@@ -11,9 +11,7 @@ import { useState } from "react";
 import useKycStatus from "@/hooks/useKycStatus";
 import { showToast } from "@/components/Reusable/CustomToast";
 import { ITask } from "@/interfaces/task";
-import { calculateDistance } from "../../Common/utils/calculateDistance";
 import { useFindLocationQuery } from "@/redux/features/location.feature";
-import { TUserLocation } from "@/interfaces/location";
 import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
 import "moment/locale/bn";
@@ -47,11 +45,7 @@ const UnskilledTaskFeed = ({ tasks }: UnskilledTaskFeedProps) => {
     setTask(selectedTask);
   };
 
-  const { data, isLoading: getLoading } = useFindLocationQuery(undefined);
-  const locations = (data?.data as TUserLocation[]) || [];
-  const filterDefault = locations?.find(
-    (l: TUserLocation) => l?.is_default === true,
-  );
+  const { isLoading: getLoading } = useFindLocationQuery(undefined);
   return (
     <>
       <div className="space-y-3">
@@ -112,16 +106,11 @@ const UnskilledTaskFeed = ({ tasks }: UnskilledTaskFeedProps) => {
                           {getLoading ? (
                             <Skeleton className="w-16 h-4 rounded bg-slate-200 dark:bg-slate-700" />
                           ) : (
-                            <>{`${calculateDistance(
-                              {
-                                lat1: task?.consumer?.user?.locations[0]?.latitude,
-                                lng1: task?.consumer?.user?.locations[0]?.longitude,
-                              },
-                              {
-                                lat2: filterDefault?.latitude as number,
-                                lng2: filterDefault?.longitude as number,
-                              },
-                            ).toFixed(1)} কিমি`}</>
+                            <>
+                              {task?.distance != null
+                                ? `${(task.distance / 1000).toFixed(1)} কিমি`
+                                : "— কিমি"}
+                            </>
                           )}
                         </span>
                       </div>

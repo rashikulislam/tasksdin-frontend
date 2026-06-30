@@ -119,7 +119,7 @@ const ServiceCard = ({ service, isMobile }: ServiceCardProps) => {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1">
-                  <span className="text-sm font-medium text-gray-500 pt-1.5">
+                  <span className="text-sm font-medium text-gray-500 dark:text-gray-400 pt-1.5">
                     {service.rating.toFixed(1)}
                   </span>
                   <div className="flex">

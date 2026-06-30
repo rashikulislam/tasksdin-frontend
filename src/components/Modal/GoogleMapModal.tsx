@@ -10,7 +10,16 @@ import {
 } from "@react-google-maps/api";
 
 type LatLng = { lat: number; lng: number };
-type Address = { formattedAddress: string; houseNo?: string };
+type Address = {
+  formattedAddress: string;
+  houseNo?: string;
+  street?: string;
+  area?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  locationType?: string;
+};
 
 type GoogleMapModalProps = {
   isOpen: boolean;
@@ -21,19 +30,17 @@ type GoogleMapModalProps = {
 
 const containerStyle = {
   width: "100%",
-  height: "400px",
+  height: "280px",
 };
 
 const mapOptions: google.maps.MapOptions = {
-  zoom: 14,
-  disableDefaultUI: true, // disable all default UI for cleaner look
-  zoomControl: true, // keep zoom control
-  streetViewControl: false, // hide Street View for cleaner UI
-  mapTypeControl: false, // hide map type control
-  fullscreenControl: true, // keep fullscreen option
-
-  gestureHandling: "greedy", // allow better mobile zooming
-  clickableIcons: false, // hide default Google POI icons
+  disableDefaultUI: true,
+  zoomControl: true,
+  streetViewControl: false,
+  mapTypeControl: false,
+  fullscreenControl: false,
+  gestureHandling: "greedy",
+  clickableIcons: false,
 };
 
 const GoogleMapModal = ({
@@ -48,9 +55,7 @@ const GoogleMapModal = ({
   const [infoOpen, setInfoOpen] = useState(true);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey:
-      process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY! ||
-      "AIzaSyBZ5cSdOkFQYyo_CH4E_gn8X_WHi3kJ_oE",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY! || "AIzaSyBZ5cSdOkFQYyo_CH4E_gn8X_WHi3kJ_oE",
   });
 
   useEffect(() => {
@@ -59,37 +64,27 @@ const GoogleMapModal = ({
       setPinPosition({ lat: 23.8103, lng: 90.4125 });
       return;
     }
-
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-
-        setPinPosition({ lat: latitude, lng: longitude });
-      },
-      () => {
-        setPinPosition({ lat: 23.8103, lng: 90.4125 });
-      },
+      (pos) => setPinPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      () => setPinPosition({ lat: 23.8103, lng: 90.4125 }),
       { enableHighAccuracy: true }
     );
   }, [isOpen]);
 
-  // 🔁 Reverse geocode
   const fetchAddress = async (lat: number, lng: number) => {
     try {
       setLoadingAddress(true);
       const res = await fetch(`/api/google-map?lat=${lat}&lng=${lng}`);
       const data = await res.json();
-      console.log(data);
       setTempAddress(data);
       setInfoOpen(true);
-    } catch (err) {
-      console.error("Reverse geocode failed", err);
+    } catch {
+      // silent
     } finally {
       setLoadingAddress(false);
     }
   };
 
-  // 📌 Marker drag handler
   const handleDragEnd = async (e: google.maps.MapMouseEvent) => {
     if (!e.latLng) return;
     const lat = e.latLng.lat();
@@ -98,77 +93,79 @@ const GoogleMapModal = ({
     await fetchAddress(lat, lng);
   };
 
-  // 📍 Fetch first address when pinPosition ready
   useEffect(() => {
     if (pinPosition) fetchAddress(pinPosition.lat, pinPosition.lng);
   }, [pinPosition]);
 
+  const addressLabel = tempAddress
+    ? `${tempAddress.houseNo ? tempAddress.houseNo + ", " : ""}${tempAddress.formattedAddress}`
+    : "";
+
   return (
-    <CustomModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="লোকেশন ঠিক করুন"
-      width="xl"
-    >
-      <div className="w-full rounded-lg bg-white p-4">
-        {!isLoaded || !pinPosition ? (
-          <p className="text-sm text-muted-foreground">Map loading...</p>
-        ) : (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={pinPosition}
-            zoom={17}
-            options={mapOptions}
-          >
-            <Marker
-              position={pinPosition}
-              draggable
-              onDragEnd={handleDragEnd}
-              animation={google.maps.Animation.DROP}
+    <CustomModal isOpen={isOpen} onClose={onClose} title="লোকেশন ঠিক করুন" width="xl">
+      <div className="bg-white rounded-lg flex flex-col gap-3 p-3">
+        {/* Map */}
+        <div className="rounded-lg overflow-hidden border border-gray-200">
+          {!isLoaded || !pinPosition ? (
+            <div className="h-[280px] flex items-center justify-center text-sm text-gray-400">
+              Map লোড হচ্ছে...
+            </div>
+          ) : (
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={pinPosition}
+              zoom={17}
+              options={mapOptions}
             >
-              {infoOpen && tempAddress && (
-                <InfoWindow
-                  position={pinPosition}
-                  onCloseClick={() => setInfoOpen(false)}
-                >
-                  <div className="text-sm">
-                    {tempAddress.houseNo
-                      ? `${tempAddress.houseNo}, ${tempAddress.formattedAddress}`
-                      : tempAddress.formattedAddress}
-                  </div>
-                </InfoWindow>
-              )}
-            </Marker>
-          </GoogleMap>
-        )}
+              <Marker
+                position={pinPosition}
+                draggable
+                onDragEnd={handleDragEnd}
+                animation={google.maps.Animation.DROP}
+              >
+                {infoOpen && tempAddress && (
+                  <InfoWindow
+                    position={pinPosition}
+                    onCloseClick={() => setInfoOpen(false)}
+                  >
+                    <div style={{ color: "#111827", fontSize: "13px", maxWidth: "200px", fontFamily: "sans-serif" }}>
+                      {addressLabel}
+                    </div>
+                  </InfoWindow>
+                )}
+              </Marker>
+            </GoogleMap>
+          )}
+        </div>
 
-        <p className="mt-2 text-sm text-muted-foreground">
-          {loadingAddress
-            ? "ঠিকানা খোঁজা হচ্ছে..."
-            : tempAddress
-            ? `${tempAddress.houseNo ? tempAddress.houseNo + ", " : ""}${
-                tempAddress.formattedAddress
-              }`
-            : "Pin টা সঠিক জায়গায় নড়ান"}
-        </p>
+        {/* Address preview */}
+        <div className="px-1 min-h-[36px] flex items-center">
+          <p className="text-sm text-gray-600">
+            {loadingAddress
+              ? "ঠিকানা খোঁজা হচ্ছে..."
+              : addressLabel || "Pin টা সঠিক জায়গায় সরান"}
+          </p>
+        </div>
 
-        <div className="mt-4 flex justify-end gap-2">
+        {/* Buttons */}
+        <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
           <button
+            type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm rounded border hover:bg-gray-100"
+            className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
           >
-            Cancel
+            বাতিল
           </button>
-
           <button
+            type="button"
             disabled={!tempAddress || !pinPosition || isLoading}
             onClick={() => {
               if (!tempAddress || !pinPosition) return;
               onConfirm(tempAddress, pinPosition);
             }}
-            className="px-4 py-2 text-sm rounded bg-primary text-white disabled:opacity-50"
+            className="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Confirm Location
+            {isLoading ? "সেভ হচ্ছে..." : "লোকেশন নিশ্চিত করুন"}
           </button>
         </div>
       </div>

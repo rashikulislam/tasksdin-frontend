@@ -36,7 +36,7 @@ const ConsumerActivityPage = () => {
           ${
             activeTab === index
               ? "bg-[#3C83F6] text-white shadow-md sm:shadow-lg sm:scale-105"
-              : "bg-white border text-gray-700"
+              : "bg-white dark:bg-gray-800 border dark:border-gray-700 text-gray-700 dark:text-gray-200"
           }`}
           >
             {tab}
@@ -46,10 +46,10 @@ const ConsumerActivityPage = () => {
 
       {/* Tab content */}
       <div
-        className="bg-white shadow-sm sm:shadow-md rounded-lg sm:rounded-xl 
-    p-4 sm:p-6 text-center text-gray-700 
-    min-h-[140px] sm:min-h-[200px] 
-    flex items-center justify-center 
+        className="bg-white dark:bg-gray-800 shadow-sm sm:shadow-md rounded-lg sm:rounded-xl
+    p-4 sm:p-6 text-center text-gray-700 dark:text-gray-200
+    min-h-[140px] sm:min-h-[200px]
+    flex items-center justify-center
     text-sm sm:text-lg transition-all duration-300"
       >
         {renderTabContent()}

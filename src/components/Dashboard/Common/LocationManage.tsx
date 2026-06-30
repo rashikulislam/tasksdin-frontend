@@ -23,6 +23,13 @@ import { TUserLocation } from "@/interfaces/location";
 
 type Address = {
   formattedAddress: string;
+  houseNo?: string;
+  street?: string;
+  area?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  locationType?: string;
 };
 
 type LocationData = {
@@ -64,6 +71,10 @@ const LocationManage = () => {
       });
     } catch (err) {
       console.warn("Could not get location:", err);
+      setLocation({
+        position: { lat: 23.8103, lng: 90.4125 },
+        address: { formattedAddress: "" },
+      });
     } finally {
       setIsModalOpen(true);
       setBgLoading(false);
